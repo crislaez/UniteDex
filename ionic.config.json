@@ -1,0 +1,7 @@
+{
+  "name": "unite-pokemon-dex",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
