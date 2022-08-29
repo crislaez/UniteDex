@@ -1,0 +1,96 @@
+@import '../../../../theme/variables';
+
+:host{
+  width: 45%;
+
+  ion-card{
+    min-height: 7em;
+    // backdrop-filter: saturate(180%) blur(10px);
+    // background: rgba(255,255,255, 0.1);
+    // background: radial-gradient($primary, transparent);
+    // background: linear-gradient(30deg, $primary 50%, $sixtiary 50%, transparent);
+    background: linear-gradient(40deg, $primary 50%, $sixtiary 50%);
+    // background: $primary;
+    // box-shadow: 1px 1px 5px black !important;
+    margin-bottom: 20px;
+
+    .ion-card-pokeball{
+      position: absolute;
+      width: 5em;
+      height: 5em;
+      top: 45px;
+      border-radius: 50%;
+      background: none;
+      overflow: hidden;
+      transform: rotate(-20deg);
+
+      &:before{
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 47%;
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      &:after{
+        content: "";
+        position: absolute;
+        top: 56%;
+        width: 100%;
+        height: 55%;
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .ion-card-pokeball-circle{
+        position: absolute;
+        width: 1.5em;
+        height: 1.5em;
+        border-radius: 50%;
+        margin-left: 50%;
+        margin-top: 35%;
+        background: rgba(255, 255, 255, 0.1) !important;
+        z-index: 1;
+      }
+
+    }
+
+    .pokemon-item{
+      padding: 10px;
+      height: 7em;
+
+      .pokemon-item-title{
+        width: 90%;
+        margin: 0 auto;
+      }
+
+      .pokemon-item-avatar{
+        width: 45%;
+      }
+
+      .pokemon-item-types{
+        width: 45%;
+        margin-top: 10px;
+      }
+    }
+
+    ion-avatar {
+      width: 4em;
+      height: 4em;
+      margin: 0 auto;
+      margin-top: 10px;
+    }
+
+    ion-chip{
+      width: 100%;
+      height: 20px;
+      // box-shadow: 1px 1px 7px grey;
+      background: $eighthiary;
+
+      ion-label{
+        font-size: 10px;
+        margin: 0 auto;
+      }
+    }
+  }
+
+}

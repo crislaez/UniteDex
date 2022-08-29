@@ -1,0 +1,34 @@
+@import '../../../theme/variables';
+
+:host{
+  width: 100%;
+
+  ion-card {
+    margin: 0 auto;
+
+    ion-card-header{
+      background: $sixtiary;
+      // background-image: url('/assets/images/degradate.png');
+      // background-repeat: repeat;
+
+      height: 50px;
+
+      ion-card-title{
+        text-align: start;
+        // text-shadow: 1px 1px 2px black;
+      }
+    }
+  }
+
+  .div-image{
+    width: 33%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+    >span{
+      text-align: center;
+      width: 100%;
+    }
+  }
+
+}

@@ -1,15 +1,28 @@
 import { NgModule } from '@angular/core';
-import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: '',
-    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
+    path: 'home',
+    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+  },
+  {
+    path: 'list',
+    loadChildren: () => import('./generic/generic.module').then( m => m.GenericModule)
+  },
+  {
+    path: 'pokemon',
+    loadChildren: () => import('./pokemon/pokemon.module').then( m => m.PokemonPageModule)
+  },
+  {
+    path: '**',
+    redirectTo: 'home',
   }
 ];
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    // RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
+    RouterModule.forRoot(routes)
   ],
   exports: [RouterModule]
 })

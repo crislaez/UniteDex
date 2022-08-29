@@ -1,0 +1,25 @@
+@import '../../../../theme/variables';
+
+
+ion-button{
+  --background: $primary !important;
+  --color: #FFFFFF !important;
+}
+
+ion-content{
+  --background: $eighthiary
+}
+
+ion-item{
+  margin-top: 10px;
+  // --background: #FFFFFF !important;
+  // color: $fourtiary;
+  --background: #AC9ACD !important;
+
+  ion-labe{
+    color: #FFFFFF !important;
+  }
+
+}
+
+

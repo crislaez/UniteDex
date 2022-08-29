@@ -1,0 +1,52 @@
+@import '../../../theme/variables';
+
+:host{
+  width: 100%;
+
+  ion-card{
+    margin: 0 auto;
+
+    ion-card-header{
+      background: $sixtiary;
+      // background-image: url('/assets/images/degradate.png');
+      // background-repeat: repeat;
+      height: 70px;
+
+      padding-top: 5px !important;
+      padding-bottom: 5px !important;
+
+      ion-card-title{
+        text-align: start;
+        // text-shadow: 1px 1px 2px black;
+      }
+
+      // ion-card-title, ion-card-subtitle{
+      //   // padding: 0px;
+      //   // margin: 0px;
+      // }
+    }
+
+    .build-item{
+      min-height: 55px;
+    }
+
+    .div-item{
+      width: 55%;
+    }
+
+    .div-item-name{
+      min-width: 40%;
+      @include displays-start-center;
+
+      >div{
+        margin-left: 8%;
+      }
+    }
+
+    .div-image{
+      width: 18%;
+      margin-left: 5%;
+    }
+
+  }
+}

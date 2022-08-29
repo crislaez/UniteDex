@@ -1,0 +1,83 @@
+@import '../../../theme/variables';
+
+:host{
+  width: 100%;
+
+  ion-card{
+    margin: 0 auto;
+
+    ion-card-header{
+      height: 50px;
+      // background: #649CD9;
+      background: $sixtiary;
+      // background-image: url('/assets/images/degradate.png');
+      // background-repeat: repeat;
+      padding-top: 5px !important;
+      padding-bottom: 5px !important;
+
+      ion-card-title{
+        text-align: start;
+
+        ion-avatar{
+          margin-right: 5%;
+          width: 2em !important;
+          height: 2em !important;
+        }
+      }
+    }
+
+    ion-chip{
+      width: 40%;
+      text-align: center;
+
+      ion-icon{
+        margin-right: 5%;
+        color: $primary;
+      }
+    }
+
+    .build-item{
+      min-height: 55px;
+    }
+
+    .div-item{
+      width: 60%;
+    }
+
+    .div-item-name{
+      min-width: 35%;
+      @include displays-start-center;
+
+      >div{
+        margin-left: 8%;
+      }
+    }
+
+    .div-image{
+      width: 18%;
+      margin-left: 5%;
+    }
+
+    .upgrade-cards{
+      width: 90%;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      background: $secondary !important;
+      color: $tertiary;
+
+      ion-card-header{
+        // background: #724ABC !important;
+        background: $sixtiary !important;
+        background-image: url('/assets/images/degradate.png') !important;
+        background-repeat: repeat !important;
+      }
+    }
+
+    hr{
+      background: $primary;
+    }
+
+  }
+
+
+}

@@ -1,0 +1,12 @@
+@import '../../../theme/variables.scss';
+
+.class-ion-button{
+  --background: $primary !important;
+  --color: #FFFFFF !important;
+}
+
+poke-unite-skeleton-card{
+  // margin-bottom: 10px;
+  width: 45%;
+  height: 130px !important;
+}

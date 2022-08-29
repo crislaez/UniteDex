@@ -1,0 +1,41 @@
+{
+  "COMMON":{
+    "TITLE":"UniteDex",
+    "MENU":"Menu",
+    "NO_DATA":"No data",
+    "NORESULT":"No data found, swipe down to reload",
+    "ERROR":"An error has occurred, swipe down to reload",
+    "BY_NAME":"Search name...",
+    "POKEMON":"Pokemon",
+    "STORAGE":"Storage",
+    "SHARE":"Share",
+    "DELETE":"Delete",
+    "CLOSE":"Close",
+    "SHEE_MORE":"Show more",
+    "ABILITIES":"Abilities",
+    "BUILDS":"Builds",
+    "PATH":"Path",
+    "HELD":"Held",
+    "BATTLE":"Battle",
+    "HELD_OPTIONAL":"Held Optional",
+    "BATTLE_OPTIONAL":"Battle Optional",
+    "LV":"Lv",
+    "EVOLUTIONS":"Evolutions",
+    "ATTACKER":"Attacker",
+    "NOTES":"Notes",
+    "INFO":"Info",
+    "BATTLE_ITEMS":"Battle items",
+    "BUILD_ITEMS":"Build items",
+    "DAMAGE":"Damage",
+    "DIFFICULTY":"Difficulty",
+    "RANGE":"Range",
+    "ROLES":"Role",
+    "EVERYONE":"All"
+  },
+  "ERRORS":{
+    "ERROR_LOAD_POKEMONS":"Error loading pokemons",
+    "ERROR_LOAD_POKEMON":"Error loading pokemon",
+    "ERROR_LOAD_BATTLE_ITEMS":"Error loading battle items",
+    "ERROR_LOAD_BUILD_ITEMS":"Error loading build items"
+  }
+}

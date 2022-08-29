@@ -1,8 +1,8 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'unite-pokemon-dex',
+  appId: 'io.ionic.UniteDex',
+  appName: 'UniteDex',
   webDir: 'www',
   bundledWebRuntime: false
 };

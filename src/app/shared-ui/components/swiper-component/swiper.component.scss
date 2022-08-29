@@ -1,0 +1,119 @@
+@import '../../../../theme/variables';
+
+:host ::ng-deep .swiper-pagination{
+
+  .swiper-pagination-bullet {
+    background-color: $primary;
+  }
+}
+
+:host{
+  width: 100%;
+  // height: 225px;
+  height: 210px;
+}
+
+swiper {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  height: 150px;
+
+  ng-template{
+    min-height: 100px;
+  }
+}
+
+// .slide-ion-card{
+//   width: 90% !important;
+//   // min-height: 150px;
+//   // height: 135px !important;
+//   overflow: hidden;
+//   border-radius: 10px;
+//   background: none;
+//   margin-bottom: 40px;
+//   // background: rgba(255,255,255,0.1) !important;
+
+//   img, ion-img{
+//     width: 90%;
+//     margin: 0 auto;
+//     height: 7em !important;
+//   }
+
+//   ion-img::part(image) {
+//     backdrop-filter: saturate(180%) blur(10px);
+//     background: rgba(255,255,255, 0.1);
+//     border-radius: 20px !important;
+//   }
+
+//   ion-card-header{
+//     padding-left: 0px;
+//     padding-right: 0px;
+//     height: 50px !important;
+//     font-size: 10px !important;
+//     margin-top: -5px;
+
+
+//     .ion-card-header-left{
+//       width: 75%;
+//     }
+
+//     .ion-card-header-rigth{
+//       width:20%;
+//     }
+
+//   }
+
+//   .div-image {
+//     height: 100px;
+//     border-radius: 10px;
+//   }
+
+//   .div-p{
+//     height: 20px;
+//     // margin-bottom: 10px;
+//   }
+
+//   .div-image, .div-p{
+//     width: 100%;
+//     // background: #2F2F2F
+//     backdrop-filter: saturate(180%) blur(10px);
+//     background: rgba(255,255,255, 0.1);;
+//     position: relative;
+
+//     &:after{
+//       display: block;
+//       content: '';
+//       width: 100%;
+//       height: 100%;
+//       transform: translateX(-100%);
+//       background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .4) , transparent);
+//       animation: loading 1s infinite;
+//     }
+//   }
+
+//   .mat-card-header{
+//     width: 100%;
+//     border-radius: 10px !important;
+//     position: relative;
+//   }
+
+//   .card-content{
+//     padding: 15px;
+
+//     >p{
+//       font-size: 1.5em;
+//       border-spacing: 20px;
+//       line-height: initial;
+//       color: $eighthiary;
+//       // color: ;
+//     }
+//   }
+
+// }
+
+
+// @keyframes loading {
+//   100% {
+//     transform: translateX(100%);
+//   }
+// }
