@@ -3,7 +3,7 @@ import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 import { trackById } from '@uniteDex/shared/utils/functions';
 import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { filter, map, tap } from 'rxjs/operators';
 
 
 @Component({
@@ -22,7 +22,7 @@ import { filter, map } from 'rxjs/operators';
         <ion-back-button *ngIf="!['home']?.includes(currentSection?.route)"  class="text-color-light" slot="start" [defaultHref]="redirectoTo(currentSection)" [text]="''"></ion-back-button>
 
         <ion-title class="text-color-light big-size" >
-          {{ currentSection?.label | translate }}
+          {{ replateTitle(currentSection?.label) | translate }}
         </ion-title>
 
         <div *ngIf="!['home']?.includes(currentSection?.route)"  size="small" slot="end" class="div-clear"  >
@@ -68,6 +68,7 @@ export class AppComponent {
     map((event: NavigationEnd) => {
       const { url = ''} = event || {}
       const [, route = 'home', params = null ] = url?.split('/') || [];
+      console.log(route)
 
       const paramsTitle = {
         'pokemon':'COMMON.POKEMON',
@@ -78,10 +79,12 @@ export class AppComponent {
       return {
         'home':{route, label:'COMMON.TITLE'},
         'pokemon':{route, label: params},
+        'battleItem':{route, label: params},
+        'buildItem':{route, label: params},
         'list':{route, label: paramsTitle?.[params] || params}
       }[route] || {route: 'home', label:'COMMON.TITLE'};
     })
-    // ,tap(d => console.log(d))
+    ,tap(d => console.log(d))
   );
 
   // links = [
@@ -108,12 +111,17 @@ export class AppComponent {
   }
 
   redirectoTo(currentSection:any): string{
-    // console.log(currentSection)
     const { route = null} = currentSection || {};
     return {
       'list':'/home',
-      'pokemon':'/list/pokemon'
+      'pokemon':'/list/pokemon',
+      'battleItem':'/list/battleItem',
+      'buildItem':'/list/buildItem'
     }?.[route] || '/home'
+  }
+
+  replateTitle(label:string): string{
+    return label?.replace(/%20/g,' ');
   }
 
 }

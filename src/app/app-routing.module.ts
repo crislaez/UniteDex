@@ -15,11 +15,11 @@ const routes: Routes = [
     loadChildren: () => import('./pokemon/pokemon.module').then( m => m.PokemonPageModule)
   },
   {
-    path: 'batlle-item',
-    loadChildren: () => import('./batlle-item/batlle-item.module').then( m => m.BatlleItemPageModule)
+    path: 'battleItem',
+    loadChildren: () => import('./battle-item/battle-item.module').then( m => m.BattleItemPageModule)
   },
   {
-    path: 'build-item',
+    path: 'buildItem',
     loadChildren: () => import('./build-item/build-item.module').then( m => m.BuildItemPageModule)
   },
   {
@@ -30,9 +30,7 @@ const routes: Routes = [
   {
     path: '**',
     redirectTo: 'home',
-  },
-
-
+  }
 ];
 @NgModule({
   imports: [

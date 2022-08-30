@@ -6,9 +6,8 @@ import { NoDataModule } from '@uniteDex/shared-ui/components/no-data/no-data.mod
 import { SpinnerModule } from '@uniteDex/shared-ui/components/spinner/spinner.module';
 import { BattleItemModule } from '@uniteDex/shared/battle-item/battle-item.module';
 import { SharedModule } from '@uniteDex/shared/shared/shared.module';
-import { BatlleItemPageRoutingModule } from './batlle-item-routing.module';
-import { BatlleItemPage } from './containers/batlle-item.page';
-
+import { BattleItemPageRoutingModule } from './battle-item-routing.module';
+import { BattleItemPage } from './containers/battle-item.page';
 
 const SHARED_MODULE = [
   BattleItemModule,
@@ -20,15 +19,16 @@ const SHARED_UI_MODULE = [
   SpinnerModule,
 ];
 
+
 @NgModule({
   imports: [
-  CommonModule,
+    CommonModule,
     IonicModule,
     ...SHARED_MODULE,
     ...SHARED_UI_MODULE,
     TranslateModule.forChild(),
-    BatlleItemPageRoutingModule
+    BattleItemPageRoutingModule
   ],
-  declarations: [BatlleItemPage]
+  declarations: [BattleItemPage]
 })
-export class BatlleItemPageModule {}
+export class BattleItemPageModule {}

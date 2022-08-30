@@ -1,14 +1,15 @@
-import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IonContent } from '@ionic/angular';
 import { Store } from '@ngrx/store';
 import { CoreConfigService } from '@uniteDex/core/services/core-config.service';
-import { BuildItemActions, fromBuildItem } from '@uniteDex/shared/build-item';
+import { BattleItemActions, fromBattleItem } from '@uniteDex/shared/battle-item';
 import { emptyObject, errorImage, getObjectKeys, gotToTop, trackById } from '@uniteDex/shared/utils/functions';
 import { map, switchMap, tap } from 'rxjs/operators';
 
+
 @Component({
-  selector: 'poke-unite-build-item',
+  selector: 'app-battle-item',
   template:`
   <ion-content [fullscreen]="true" [scrollEvents]="true" (ionScroll)="logScrolling($any($event))">
 
@@ -24,7 +25,7 @@ import { map, switchMap, tap } from 'rxjs/operators';
 
                 <div class="width-max displays-center">
                   <ion-avatar class="pokemon-principal-image" slot="start">
-                    <ion-img loading="lazy" [src]="_core.imageUrl('buildItem',pokemon?.['name'])" loading="lazy" (ionError)="errorImage($event)"></ion-img>
+                    <ion-img loading="lazy" [src]="_core.imageUrl('battleItem',pokemon?.['name'])" loading="lazy" (ionError)="errorImage($event)"></ion-img>
                   </ion-avatar>
                 </div>
 
@@ -88,12 +89,11 @@ import { map, switchMap, tap } from 'rxjs/operators';
     <ion-fab *ngIf="showButton" vertical="bottom" horizontal="end" slot="fixed">
       <ion-fab-button class="color-button-text" (click)="gotToTop(content)"> <ion-icon name="arrow-up-circle-outline"></ion-icon></ion-fab-button>
     </ion-fab>
-    </ion-content>
+  </ion-content>
   `,
-  styleUrls: ['./build-item.page.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./battle-item.page.scss'],
 })
-export class BuildItemPage {
+export class BattleItemPage {
 
   gotToTop = gotToTop;
   trackById = trackById;
@@ -103,12 +103,12 @@ export class BuildItemPage {
   showButton = false
   @ViewChild(IonContent, {static: true}) content: IonContent;
 
-  status$ = this.store.select(fromBuildItem.selectStatus);
+  status$ = this.store.select(fromBattleItem.selectStatus);
   battleItem$ = this.route.params.pipe(
-    switchMap(({buildItemName}) =>
-      this.store.select(fromBuildItem.selectBuildItems).pipe(
+    switchMap(({battleItemName}) =>
+      this.store.select(fromBattleItem.selectBattleItems).pipe(
         map((allBattleItems) => {
-          return (allBattleItems || [])?.find(({name}) => name === buildItemName) || {}
+          return (allBattleItems || [])?.find(({name}) => name === battleItemName) || {}
         })
       )
     )
@@ -126,7 +126,7 @@ export class BuildItemPage {
   // REFRESH
   doRefresh(event) {
     setTimeout(() => {
-      this.store.dispatch(BuildItemActions.loadBuildItems({}))
+      this.store.dispatch(BattleItemActions.loadBattleItems({}))
       event.target.complete();
     }, 500);
   }
@@ -136,6 +136,5 @@ export class BuildItemPage {
     if(scrollTop >= 300) this.showButton = true
     else this.showButton = false
   }
-
 
 }
