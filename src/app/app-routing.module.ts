@@ -15,9 +15,24 @@ const routes: Routes = [
     loadChildren: () => import('./pokemon/pokemon.module').then( m => m.PokemonPageModule)
   },
   {
+    path: 'batlle-item',
+    loadChildren: () => import('./batlle-item/batlle-item.module').then( m => m.BatlleItemPageModule)
+  },
+  {
+    path: 'build-item',
+    loadChildren: () => import('./build-item/build-item.module').then( m => m.BuildItemPageModule)
+  },
+  {
+    path: '',
+    redirectTo: 'home',
+    pathMatch:'full'
+  },
+  {
     path: '**',
     redirectTo: 'home',
-  }
+  },
+
+
 ];
 @NgModule({
   imports: [
