@@ -1,6 +1,7 @@
 {
   "COMMON":{
     "TITLE":"UniteDex",
+    "HOME":"Home",
     "MENU":"Menu",
     "NO_DATA":"No data",
     "NORESULT":"No data found, swipe down to reload",
@@ -30,7 +31,8 @@
     "DIFFICULTY":"Difficulty",
     "RANGE":"Range",
     "ROLES":"Role",
-    "EVERYONE":"All"
+    "EVERYONE":"All",
+    "TIER_LIST":"Tier list"
   },
   "ERRORS":{
     "ERROR_LOAD_POKEMONS":"Error loading pokemons",
