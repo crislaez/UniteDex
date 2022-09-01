@@ -10,7 +10,6 @@ import { PokemonModule } from '@uniteDex/shared/pokemon/pokemon.module';
 import { InfiniteScrollModule } from './../shared-ui/components/infinite-scroll/infinite-scroll.module';
 import { NoDataModule } from './../shared-ui/components/no-data/no-data.module';
 import { PokemonCardModule } from './../shared-ui/components/pokemon-card/pokemon-card.module';
-import { SpinnerModule } from './../shared-ui/components/spinner/spinner.module';
 import { SharedModule } from './../shared/shared/shared.module';
 import { GenericPageComponent } from './containers/generic-page.component';
 import { GenericPageRoutingModule } from './generic-routing.module';

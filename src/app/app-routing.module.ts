@@ -15,6 +15,23 @@ const routes: Routes = [
     loadChildren: () => import('./pokemon/pokemon.module').then( m => m.PokemonPageModule)
   },
   {
+    path: 'battleItem',
+    loadChildren: () => import('./battle-item/battle-item.module').then( m => m.BattleItemPageModule)
+  },
+  {
+    path: 'buildItem',
+    loadChildren: () => import('./build-item/build-item.module').then( m => m.BuildItemPageModule)
+  },
+  {
+    path: 'tierList',
+    loadChildren: () => import('./tier-list/tier-list.module').then( m => m.TierListPageModule)
+  },
+  {
+    path: '',
+    redirectTo: 'home',
+    pathMatch:'full'
+  },
+  {
     path: '**',
     redirectTo: 'home',
   }

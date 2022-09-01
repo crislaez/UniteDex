@@ -5,7 +5,7 @@ export interface BuildItem {
   "stats": Stats[];
   "description1": string;
   "tier": string;
-  "tier_change": string;
+  "tier_change"?: string;
   "description3": string;
   "level1": string;
   "level10": string;

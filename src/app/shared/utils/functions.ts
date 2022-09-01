@@ -44,4 +44,12 @@ export const getSliderConfig = (info:any): SwiperOptions => {
   };
 }
 
+export const orderArray = (list: string[]) => {
+  return [...list]?.sort((a,b) => {
+    if(a > b) return 1;
+    if(b < a) return 0;
+    return -1;
+  })
+}
+
 

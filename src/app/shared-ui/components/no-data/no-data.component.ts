@@ -18,7 +18,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 })
 export class NoDataComponent {
 
-  @Input() top = '40vh';
+  @Input() top = '2vh';
   @Input() title: string;
   @Input() image: string;
 

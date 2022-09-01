@@ -4,6 +4,7 @@ export interface BattleItem {
   "description": string;
   "tier": string;
   "cooldown": number;
+  'tier_change'?: string;
   "level": number;
 }
 

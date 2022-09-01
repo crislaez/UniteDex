@@ -7,7 +7,7 @@ import { errorImage, getImage, sliceText } from '@uniteDex/shared/utils/function
 @Component({
   selector: 'poke-unite-pokemon-card',
   template:`
-  <ion-card class="ion-activatable ripple-parent pokemon-card" [routerLink]="['/pokemon/'+pokemon?.name]">
+  <ion-card class="ion-activatable ripple-parent pokemon-card" [routerLink]="['/'+type+'/'+pokemon?.name]">
     <div class="ion-card-pokeball">
       <div class="ion-card-pokeball-circle"></div>
     </div>
