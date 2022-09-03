@@ -39,7 +39,8 @@ import { filter, map, tap } from 'rxjs/operators';
       </ion-header>
 
       <ion-content >
-        <ion-item lines="none" class="text-color-light" *ngFor="let item of links; trackBy: trackById" [routerLink]="['/'+item?.link]" (click)="openEnd()">{{ item?.text | translate }}</ion-item>
+      <!-- lines="none" -->
+        <ion-item detail class="text-color-light" *ngFor="let item of links; trackBy: trackById" [routerLink]="['/'+item?.link]" (click)="openEnd()">{{ item?.text | translate }}</ion-item>
       </ion-content >
     </ion-menu>
 
@@ -86,7 +87,7 @@ export class AppComponent {
         'list':{route, label: paramsTitle?.[params] || params}
       }[route] || {route: 'home', label:'COMMON.TITLE'};
     })
-    ,tap(d => console.log(d))
+    // ,tap(d => console.log(d))
   );
 
   links = [

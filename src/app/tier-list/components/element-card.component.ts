@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { CoreConfigService } from '@uniteDex/core/services/core-config.service';
 import { errorImage, getObjectKeys, orderArray, sliceText, trackById } from '@uniteDex/shared/utils/functions';
-import { BattleItem } from './../../shared/battle-item/models/index';
-import { BuildItem } from './../../shared/build-item/models/index';
-import { Pokemon } from './../../shared/pokemon/models/index';
+import { BattleItem } from '@uniteDex/shared/battle-item/models/index';
+import { BuildItem } from '@uniteDex/shared/build-item/models/index';
+import { Pokemon } from '@uniteDex/shared/pokemon/models/index';
 
 @Component({
   selector: 'poke-unite-element-card',
@@ -20,7 +20,7 @@ import { Pokemon } from './../../shared/pokemon/models/index';
     <div class="displays-between" >
       <div class="pokemon-element"
         *ngFor="let item of tierList[key]; let i = index; trackBy: trackById"
-        [routerLink]="['/pokemon/'+item?.name]">
+        [routerLink]="['/'+type+'/'+item?.name]">
 
         <div class="marker "*ngIf="['Up','Down']?.includes(item?.tier_change)" [ngStyle]="{'color':item?.tier_change === 'Up' ? '#44EE44': '#FF2D82'}">
           <ng-container *ngIf="item?.tier_change === 'Up'" >
@@ -32,7 +32,7 @@ import { Pokemon } from './../../shared/pokemon/models/index';
         </div>
 
         <ion-avatar>
-          <ion-img [src]="_core.imageUrl('pokemon', item?.name)" (ionError)="errorImage($event)"></ion-img>
+          <ion-img [src]="_core.imageUrl(type, item?.name)" (ionError)="errorImage($event)"></ion-img>
         </ion-avatar>
 
         <div>
@@ -54,6 +54,7 @@ export class ElementCardComponent {
   getObjectKeys = getObjectKeys;
 
   @Input() tierList: {[key:string]:(Pokemon | BattleItem | BuildItem)[]};
+  @Input() type: string = 'pokemon';
 
 
   constructor(

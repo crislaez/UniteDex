@@ -1,10 +1,14 @@
 import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import { IonContent } from '@ionic/angular';
 import { Store } from '@ngrx/store';
+import { fromBattleItem } from '@uniteDex/shared/battle-item';
 import { BattleItem } from '@uniteDex/shared/battle-item/models/index';
+import { fromBuildItem } from '@uniteDex/shared/build-item';
 import { BuildItem } from '@uniteDex/shared/build-item/models/index';
+import { EntityStatus } from '@uniteDex/shared/models';
 import { fromPokemon, Pokemon, PokemonActions } from '@uniteDex/shared/pokemon';
-import { emptyObject, gotToTop } from '@uniteDex/shared/utils/functions';
+import { emptyObject, gotToTop, trackById } from '@uniteDex/shared/utils/functions';
+import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
 @Component({
@@ -13,17 +17,26 @@ import { map, tap } from 'rxjs/operators';
   <ion-content [fullscreen]="true" [scrollEvents]="true" (ionScroll)="logScrolling($any($event))">
 
     <div class="empty-header components-background-primary">
+      <div class="width-max displays-around-center margin-top-20">
+        <ion-chip
+          *ngFor="let item of filter; trackBy: trackById"
+          [ngStyle]="{'background': item?.key === selectedFilter ? '#312457' : '#724ABC'}"
+          (click)="selectedFilter = item?.key">
+          {{ item?.literal | translate }}
+        </ion-chip>
+      </div>
     </div>
 
     <div class="container components-background-dark">
-      <ng-container *ngIf="(tierList$ | async) as tierList">
-        <ng-container *ngIf="(status$ | async) as status">
+      <ng-container *ngIf="(getSelectedTierList() | async) as tierList">
+        <ng-container *ngIf="(getSelectedStatus() | async) as status">
           <ng-container *ngIf="status !== 'pending'; else loader">
             <ng-container *ngIf="status !== 'error'; else loader">
               <ng-container *ngIf="emptyObject(tierList); else noData">
 
                 <poke-unite-element-card
-                  [tierList]="tierList">
+                  [tierList]="getOrderList(tierList)"
+                  [type]="selectedFilter">
                 </poke-unite-element-card>
 
               </ng-container>
@@ -64,14 +77,33 @@ import { map, tap } from 'rxjs/operators';
 export class TierListPage {
 
   gotToTop = gotToTop;
+  trackById = trackById;
   emptyObject = emptyObject;
   showButton = false
   @ViewChild(IonContent, {static: true}) content: IonContent;
 
-  status$ = this.store.select(fromPokemon.selectStatus);
+  filter = [
+    {id:1, key:'pokemon', literal:'COMMON.POKEMON'},
+    {id:2, key:'battleItem', literal:'COMMON.BATTLE_ITEMS'},
+    {id:3, key:'buildItem', literal:'COMMON.BUILD_ITEMS'}
+  ];
+  selectedFilter = 'pokemon';
+
+  statusTierList$ = this.store.select(fromPokemon.selectStatus);
+  statusBattleItems$ = this.store.select(fromBattleItem.selectStatus);
+  statusBuildItems$ = this.store.select(fromBuildItem.selectStatus);
+
   tierList$ = this.store.select(fromPokemon.selectPokemons).pipe(
     map(pokemons => this.getTierLisrtFormat(pokemons))
-    ,tap(d => console.log(d))
+    // ,tap(d => console.log(d))
+  );
+  battleItems$ = this.store.select(fromBattleItem.selectBattleItems).pipe(
+    map(pokemons => this.getTierLisrtFormat(pokemons))
+    // ,tap(d => console.log(d))
+  );
+  buildItems$ = this.store.select(fromBuildItem.selectBuildItems).pipe(
+    map(pokemons => this.getTierLisrtFormat(pokemons))
+    // ,tap(d => console.log(d))
   );
 
 
@@ -94,6 +126,29 @@ export class TierListPage {
     else this.showButton = false
   }
 
+  getSelectedStatus(): Observable<EntityStatus> {
+    return {
+      'pokemon': this.store.select(fromPokemon.selectStatus),
+      'battleItem': this.store.select(fromBattleItem.selectStatus),
+      'buildItem': this.store.select(fromBuildItem.selectStatus)
+    }?.[this.selectedFilter] || this.store.select(fromPokemon.selectStatus);
+  }
+
+  getSelectedTierList(): Observable<any> { //Observable<{[key:string]:(Pokemon | BattleItem | BuildItem)[]}>
+    const selecetedlist$: Observable<any> = this.selectedFilter === 'pokemon'
+                         ? this.store.select(fromPokemon.selectPokemons)
+                         : this.selectedFilter === 'battleItem'
+                         ? this.store.select(fromBattleItem.selectBattleItems)
+                         : this.selectedFilter === 'buildItem'
+                         ? this.store.select(fromBuildItem.selectBuildItems)
+                         : this.store.select(fromPokemon.selectPokemons);
+
+    return selecetedlist$.pipe(
+      map(pokemons => this.getTierLisrtFormat(pokemons))
+      // ,tap(d => console.log(d))
+    );
+  }
+
   getTierLisrtFormat(items: (Pokemon | BuildItem | BattleItem)[]): {[key:string]: (Pokemon | BuildItem | BattleItem)[]} {
     return (items || [])?.reduce((acc, element) => {
       const { tier = null} = element || {}
@@ -111,6 +166,17 @@ export class TierListPage {
       }
     },{});
   }
+
+  getOrderList(list:any): {[key:string]:(Pokemon | BattleItem | BuildItem)[]} {
+    // console.log(list)
+    const { S = null,  ...rest } = list || {};
+
+    return {
+      ...(S ? {S} : {}),
+      ...(rest ?? {})
+    };
+  }
+
 
 
 }
