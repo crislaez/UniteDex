@@ -127,10 +127,6 @@ export class GenericPageComponent {
     switchMap(({slice, filters, option}) =>
       this.getSelectors(option).pipe(
         map(list => {
-          // const listFilter = option === 'pokemon'
-          //             ? this.filterPokemonList(list, filters )
-          //             : list
-          // console.log(filters, Object.values(filters || {})?.length, Object.values(filters || {}))
           const listFilter = Object.values(filters || {})?.length > 0
                         ? this.filterPokemonList(list, filters)
                         : [...list];
@@ -207,13 +203,15 @@ export class GenericPageComponent {
 
   // INIFINITE SCROLL
   loadData({event, total}) {
-    this.componentStatus = {
-      ...this.componentStatus,
-      slice: this.componentStatus.slice + this.perPage,
-      refresh:false
-    };
-    this.trigger.next(this.componentStatus);
-    event.target.complete();
+    setTimeout(() => {
+      this.componentStatus = {
+        ...this.componentStatus,
+        slice: this.componentStatus.slice + this.perPage,
+        refresh:false
+      };
+      this.trigger.next(this.componentStatus);
+      event.target.complete();
+    },500)
   }
 
   // SCROLL EVENT

@@ -1,15 +1,13 @@
 import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import { IonContent } from '@ionic/angular';
 import { Store } from '@ngrx/store';
-import { fromBattleItem } from '@uniteDex/shared/battle-item';
-import { BattleItem } from '@uniteDex/shared/battle-item/models/index';
-import { fromBuildItem } from '@uniteDex/shared/build-item';
-import { BuildItem } from '@uniteDex/shared/build-item/models/index';
+import { BattleItem, BattleItemActions, fromBattleItem } from '@uniteDex/shared/battle-item';
+import { BuildItem, BuildItemActions, fromBuildItem } from '@uniteDex/shared/build-item';
 import { EntityStatus } from '@uniteDex/shared/models';
 import { fromPokemon, Pokemon, PokemonActions } from '@uniteDex/shared/pokemon';
 import { emptyObject, gotToTop, trackById } from '@uniteDex/shared/utils/functions';
 import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-tier-list',
@@ -89,23 +87,6 @@ export class TierListPage {
   ];
   selectedFilter = 'pokemon';
 
-  statusTierList$ = this.store.select(fromPokemon.selectStatus);
-  statusBattleItems$ = this.store.select(fromBattleItem.selectStatus);
-  statusBuildItems$ = this.store.select(fromBuildItem.selectStatus);
-
-  tierList$ = this.store.select(fromPokemon.selectPokemons).pipe(
-    map(pokemons => this.getTierLisrtFormat(pokemons))
-    // ,tap(d => console.log(d))
-  );
-  battleItems$ = this.store.select(fromBattleItem.selectBattleItems).pipe(
-    map(pokemons => this.getTierLisrtFormat(pokemons))
-    // ,tap(d => console.log(d))
-  );
-  buildItems$ = this.store.select(fromBuildItem.selectBuildItems).pipe(
-    map(pokemons => this.getTierLisrtFormat(pokemons))
-    // ,tap(d => console.log(d))
-  );
-
 
   constructor(
     private store: Store,
@@ -115,7 +96,10 @@ export class TierListPage {
   // REFRESH
   doRefresh(event) {
     setTimeout(() => {
-      this.store.dispatch(PokemonActions.loadPokemons({}))
+      if(this.selectedFilter === 'pokemon')  this.store.dispatch(PokemonActions.loadPokemons({}))
+      if(this.selectedFilter === 'battleItem')  this.store.dispatch(BattleItemActions.loadBattleItems({}))
+      if(this.selectedFilter === 'buildItem')  this.store.dispatch(BuildItemActions.loadBuildItems({}))
+
       event.target.complete();
     }, 500);
   }
@@ -134,7 +118,7 @@ export class TierListPage {
     }?.[this.selectedFilter] || this.store.select(fromPokemon.selectStatus);
   }
 
-  getSelectedTierList(): Observable<any> { //Observable<{[key:string]:(Pokemon | BattleItem | BuildItem)[]}>
+  getSelectedTierList(): Observable<{[key:string]:(Pokemon | BattleItem | BuildItem)[]}> {
     const selecetedlist$: Observable<any> = this.selectedFilter === 'pokemon'
                          ? this.store.select(fromPokemon.selectPokemons)
                          : this.selectedFilter === 'battleItem'
@@ -145,7 +129,6 @@ export class TierListPage {
 
     return selecetedlist$.pipe(
       map(pokemons => this.getTierLisrtFormat(pokemons))
-      // ,tap(d => console.log(d))
     );
   }
 
@@ -168,7 +151,7 @@ export class TierListPage {
   }
 
   getOrderList(list:any): {[key:string]:(Pokemon | BattleItem | BuildItem)[]} {
-    // console.log(list)
+    console.log(list)
     const { S = null,  ...rest } = list || {};
 
     return {

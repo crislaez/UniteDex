@@ -4,27 +4,27 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+    loadChildren: () => import('./views/home/home.module').then( m => m.HomePageModule)
   },
   {
     path: 'list',
-    loadChildren: () => import('./generic/generic.module').then( m => m.GenericModule)
+    loadChildren: () => import('./views/generic/generic.module').then( m => m.GenericModule)
   },
   {
     path: 'pokemon',
-    loadChildren: () => import('./pokemon/pokemon.module').then( m => m.PokemonPageModule)
+    loadChildren: () => import('./views/pokemon/pokemon.module').then( m => m.PokemonPageModule)
   },
   {
     path: 'battleItem',
-    loadChildren: () => import('./battle-item/battle-item.module').then( m => m.BattleItemPageModule)
+    loadChildren: () => import('./views/battle-item/battle-item.module').then( m => m.BattleItemPageModule)
   },
   {
     path: 'buildItem',
-    loadChildren: () => import('./build-item/build-item.module').then( m => m.BuildItemPageModule)
+    loadChildren: () => import('./views/build-item/build-item.module').then( m => m.BuildItemPageModule)
   },
   {
     path: 'tierList',
-    loadChildren: () => import('./tier-list/tier-list.module').then( m => m.TierListPageModule)
+    loadChildren: () => import('./views/tier-list/tier-list.module').then( m => m.TierListPageModule)
   },
   {
     path: '',
