@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges } from '@angular/core';
 import { CoreConfigService } from '@uniteDex/core/services/core-config.service';
 import { Pokemon } from '@uniteDex/shared/pokemon';
 import { errorImage, getObjectKeys, trackById } from '@uniteDex/shared/utils/functions';
@@ -33,6 +33,11 @@ import { errorImage, getObjectKeys, trackById } from '@uniteDex/shared/utils/fun
       </div>
     </div>
   </ion-card>
+
+  <!-- IS NO DATA  -->
+  <ng-container *ngIf="(!pokemon?.['evolution'] || pokemon?.['evolution']?.length === 0) && !pokemon?.notes">
+    <poke-unite-no-data [title]="'COMMON.NORESULT'" [image]="'assets/images/empty.png'" [top]="'15vh'"></poke-unite-no-data>
+  </ng-container>
   `,
   styleUrls: ['./info.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -48,6 +53,7 @@ export class InfoComponent {
   constructor(
     public _core: CoreConfigService
   ) { }
+
 
 
 }

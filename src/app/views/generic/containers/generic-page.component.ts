@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, HostListener, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Keyboard } from '@capacitor/keyboard';
-import { IonContent, ModalController, Platform } from '@ionic/angular';
+import { IonContent, ModalController, NavController, Platform } from '@ionic/angular';
 import { Store } from '@ngrx/store';
 import { CoreConfigService } from '@uniteDex/core/services/core-config.service';
 import { FilterModalComponent } from '@uniteDex/shared-ui/components/filter-modal/filter-modal.component';
@@ -82,9 +82,6 @@ import { map, shareReplay, switchMap, tap } from 'rxjs/operators';
       </ng-template>
 
       <!-- LOADER  -->
-      <!-- <ng-template #loader>
-        <poke-unite-spinner [top]="'65%'"></poke-unite-spinner>
-      </ng-template> -->
       <ng-template #loader>
         <div class="header">
         </div>
@@ -141,13 +138,19 @@ export class GenericPageComponent {
     // ,tap(d => console.log(d))
   );
 
+  @HostListener('document:ionBackButton', ['$event'])
+  private overrideHardwareBackAction($event) {
+    $event.detail.register(100, () => this.navCtrl.back());
+  }
+
 
   constructor(
-    public modalController: ModalController,
-    private _core: CoreConfigService,
-    private route: ActivatedRoute,
-    public platform: Platform,
     private store: Store,
+    public platform: Platform,
+    private route: ActivatedRoute,
+    private navCtrl: NavController,
+    private _core: CoreConfigService,
+    public modalController: ModalController,
   ) { }
 
 

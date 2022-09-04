@@ -31,12 +31,18 @@ export interface Tag {
 
 export interface Skill {
   "name": string;
-  "passive2_name":string;
-  "passive2_description":string;
   "ability": string;
   "description": string;
   "rsb": any
   "upgrades": any[]
+  "passive2_name":string;
+  "passive2_description":string;
+  "passive3_name"?:string;
+  "passive3_description"?:string;
+  "basic2_name"?: string;
+  "basic2_description"?:string;
+  "basic3_name"?: string;
+  "basic3_description"?:string;
 }
 
 export interface Evolution {

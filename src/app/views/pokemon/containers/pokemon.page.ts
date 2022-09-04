@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostListener, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { IonContent } from '@ionic/angular';
+import { IonContent, NavController } from '@ionic/angular';
 import { Store } from '@ngrx/store';
 import { CoreConfigService } from '@uniteDex/core/services/core-config.service';
 import { fromPokemon, PokemonActions } from '@uniteDex/shared/pokemon';
@@ -44,17 +44,17 @@ import { map, switchMap } from 'rxjs/operators';
                 </ion-segment>
 
                 <poke-unite-abilities
-                  *ngIf="selected === 1"
+                  *ngIf="selected === options?.abilities"
                   [pokemon]="pokemon">
                 </poke-unite-abilities>
 
                 <poke-unite-info
-                  *ngIf="selected === 2"
+                  *ngIf="selected === options?.info"
                   [pokemon]="pokemon">
                 </poke-unite-info>
 
                 <poke-unite-builds
-                  *ngIf="selected === 3"
+                  *ngIf="selected === options?.builds"
                   [pokemon]="pokemon">
                 </poke-unite-builds>
 
@@ -123,10 +123,22 @@ export class PokemonPage {
     {id:3, label:'COMMON.BUILDS'},
   ];
 
+  options = {
+    abilities:1,
+    info:2,
+    builds:3,
+  };
+
+  @HostListener('document:ionBackButton', ['$event'])
+  private overrideHardwareBackAction($event) {
+    $event.detail.register(100, () => this.navCtrl.back());
+  }
+
 
   constructor(
     private store: Store,
     private route: ActivatedRoute,
+    private navCtrl: NavController,
     public _core: CoreConfigService
   ) { }
 

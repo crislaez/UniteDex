@@ -1,15 +1,15 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { CoreConfigService } from '@uniteDex/core/services/core-config.service';
-import { errorImage, getObjectKeys, orderArray, sliceText, trackById } from '@uniteDex/shared/utils/functions';
 import { BattleItem } from '@uniteDex/shared/battle-item/models/index';
 import { BuildItem } from '@uniteDex/shared/build-item/models/index';
 import { Pokemon } from '@uniteDex/shared/pokemon/models/index';
+import { errorImage, getObjectKeys, orderArray, sliceText, trackById } from '@uniteDex/shared/utils/functions';
 
 @Component({
   selector: 'poke-unite-element-card',
   template:`
   <ion-card class="text-color-light components-background-eighthiary margin-top-20"
-    *ngFor="let key of orderArray(getObjectKeys(tierList))">
+    *ngFor="let key of orderSFirst(orderArray(getObjectKeys(tierList)))">
 
     <ion-card-header [ngClass]="{'S':key === 'S', 'A':key === 'A', 'B':key === 'B', 'C':key === 'C', 'D':key === 'D'}">
       <ion-card-title *ngIf="key" class="text-color-light shadow-text span-bold">
@@ -61,6 +61,13 @@ export class ElementCardComponent {
     public _core: CoreConfigService
   ) { }
 
+
+  orderSFirst(list: string[]): string[] {
+    const listWithoutSRange = (list || [])?.filter(item => item !== 'S')
+    return list?.includes('S')
+            ? ['S', ...(listWithoutSRange ?? [])]
+            : listWithoutSRange || [];
+  }
 
 
 }

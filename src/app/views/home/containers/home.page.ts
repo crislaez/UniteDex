@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
-import { IonContent, Platform } from '@ionic/angular';
+import { ChangeDetectionStrategy, Component, HostListener, ViewChild } from '@angular/core';
+import { IonContent, MenuController, Platform } from '@ionic/angular';
 import { Store } from '@ngrx/store';
 import { BattleItemActions } from '@uniteDex/shared/battle-item';
 import { BuildItemActions } from '@uniteDex/shared/build-item';
@@ -58,10 +58,16 @@ export class HomePage {
     {id:3, title:'COMMON.BATTLE_ITEMS', element:'battleItem', status:'battleStatus', type:'battleItem' }
   ];
 
+  @HostListener('document:ionBackButton', ['$event'])
+  private overrideHardwareBackAction($event) {
+    $event.detail.register(100, () => console.log('--- DONT CLOSE APP ---'));
+  }
+
 
   constructor(
     private store: Store,
     public platform: Platform,
+    private menu: MenuController,
   ) { }
 
 

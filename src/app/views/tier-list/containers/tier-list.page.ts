@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
-import { IonContent } from '@ionic/angular';
+import { ChangeDetectionStrategy, Component, HostListener, ViewChild } from '@angular/core';
+import { IonContent, NavController } from '@ionic/angular';
 import { Store } from '@ngrx/store';
 import { BattleItem, BattleItemActions, fromBattleItem } from '@uniteDex/shared/battle-item';
 import { BuildItem, BuildItemActions, fromBuildItem } from '@uniteDex/shared/build-item';
@@ -18,7 +18,7 @@ import { map } from 'rxjs/operators';
       <div class="width-max displays-around-center margin-top-20">
         <ion-chip
           *ngFor="let item of filter; trackBy: trackById"
-          [ngStyle]="{'background': item?.key === selectedFilter ? '#312457' : '#724ABC'}"
+          [ngStyle]="{'background': item?.key === selectedFilter ? '#312457' : 'rgba(255,255,255, 0.2)'}"
           (click)="selectedFilter = item?.key">
           {{ item?.literal | translate }}
         </ion-chip>
@@ -33,7 +33,7 @@ import { map } from 'rxjs/operators';
               <ng-container *ngIf="emptyObject(tierList); else noData">
 
                 <poke-unite-element-card
-                  [tierList]="getOrderList(tierList)"
+                  [tierList]="tierList"
                   [type]="selectedFilter">
                 </poke-unite-element-card>
 
@@ -87,9 +87,15 @@ export class TierListPage {
   ];
   selectedFilter = 'pokemon';
 
+  @HostListener('document:ionBackButton', ['$event'])
+  private overrideHardwareBackAction($event) {
+    $event.detail.register(100, () => this.navCtrl.back());
+  }
+
 
   constructor(
     private store: Store,
+    private navCtrl: NavController,
   ) { }
 
 
@@ -149,17 +155,5 @@ export class TierListPage {
       }
     },{});
   }
-
-  getOrderList(list:any): {[key:string]:(Pokemon | BattleItem | BuildItem)[]} {
-    console.log(list)
-    const { S = null,  ...rest } = list || {};
-
-    return {
-      ...(S ? {S} : {}),
-      ...(rest ?? {})
-    };
-  }
-
-
 
 }

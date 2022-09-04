@@ -1,6 +1,7 @@
+import { getObjectKeys } from './../../../shared/utils/functions';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { CoreConfigService } from '@uniteDex/core/services/core-config.service';
-import { Pokemon } from '@uniteDex/shared/pokemon/models';
+import { Pokemon, Skill } from '@uniteDex/shared/pokemon/models';
 import { errorImage, trackById } from '@uniteDex/shared/utils/functions';
 
 @Component({
@@ -13,7 +14,7 @@ import { errorImage, trackById } from '@uniteDex/shared/utils/functions';
       <ion-card-title *ngIf="skill?.name" class="text-color-light span-bold">
         <div class="displays-start">
           <ion-avatar>
-            <ion-img [src]="_core.imageUrl(pokemon?.name, skill?.name)" (ionError)="errorImage($event)"></ion-img>
+            <ion-img [src]="_core.imageUrl(pokemon?.name, getSkillName(skill?.name))" (ionError)="errorImage($event)"></ion-img>
           </ion-avatar>
           <div>
             <div>{{ skill?.name }}</div>
@@ -35,24 +36,25 @@ import { errorImage, trackById } from '@uniteDex/shared/utils/functions';
       </div>
     </div>
 
-    <ng-container *ngIf="i === 0 && !!skill?.passive2_name">
+    <ng-container *ngIf="i <= 1 && getExistFields(skill)">
+    <!-- *ngFor="let subItems of getCountElement(skill)" -->
       <ion-card-header >
         <ion-card-title class="text-color-light span-bold">
           <div class="displays-start">
             <ion-avatar>
-              <ion-img [src]="_core.imageUrl(pokemon?.name, skill?.passive2_name)" (ionError)="errorImage($event)"></ion-img>
+              <ion-img [src]="_core.imageUrl(pokemon?.name, getSkillName((skill?.passive2_name || skill?.basic2_name || skill?.basic3_name)))" (ionError)="errorImage($event)"></ion-img>
             </ion-avatar>
             <div>
-              <div>{{ skill?.name }}</div>
+              <div>{{ skill?.passive2_name || skill?.basic2_name || skill?.basic3_name }}</div>
               <div class="font-medium">{{ skill?.ability }}</div>
             </div>
           </div>
         </ion-card-title>
       </ion-card-header>
 
-      <div class="displays-center" *ngIf="skill?.passive2_description">
+      <div class="displays-center" >
         <div class="padding-20">
-          {{ skill?.passive2_description }}
+          {{ skill?.passive2_description || skill?.basic2_description || skill?.basic3_description }}
         </div>
       </div>
     </ng-container>
@@ -98,7 +100,7 @@ export class AbilitiesComponent {
   trackById = trackById;
   errorImage = errorImage;
   @Input() pokemon: Partial<Pokemon>;
-
+  extraAbilities = ['passive2_name', 'passive3_name', 'basic2_name', 'basic3_name']
 
   constructor(
     public _core: CoreConfigService
@@ -108,4 +110,20 @@ export class AbilitiesComponent {
   // ngOnChanges(): void{
   //   console.log(this.pokemon?.skills)
   // }
+
+  getExistFields(skill: Skill): any{
+    return Object.keys(skill || {})?.some(item => this.extraAbilities?.includes(item));
+  }
+
+  // getCountElement(skill: Skill): string[] { //ability : "Passive"
+  //   return Object.keys(skill || {})?.filter(item => item?.includes('_name')) || []
+  // }
+
+  getSkillName(skill:string): string {
+    return skill?.includes('Attack')
+            ? 'Attack'
+            : skill
+  }
+
+
 }

@@ -1,9 +1,9 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostListener } from '@angular/core';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 import { trackById } from '@uniteDex/shared/utils/functions';
 import { Observable } from 'rxjs';
-import { filter, map, tap } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 
 
 @Component({
@@ -98,10 +98,15 @@ export class AppComponent {
     {id:5, link:'tierList', text:'COMMON.TIER_LIST'}
   ];
 
+  @HostListener('document:ionBackButton', ['$event'])
+  private overrideHardwareBackAction($event) {
+    $event.detail.register(100, () => console.log('--- DONT CLOSE APP ---'));
+  }
+
 
   constructor(
+    private router: Router,
     private menu: MenuController,
-    private router: Router
   ) { }
 
 
