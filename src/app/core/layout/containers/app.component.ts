@@ -19,7 +19,6 @@ import { filter, map } from 'rxjs/operators';
         <!-- back button  -->
         <ion-back-button *ngIf="!['home']?.includes(currentSection?.route)" class="text-color-light" slot="start" [defaultHref]="redirectoTo(currentSection)" [text]="''"></ion-back-button>
 
-
         <ion-title class="text-color-light big-size" >
           {{ replaceTitle(currentSection?.label) | translate }}
         </ion-title>

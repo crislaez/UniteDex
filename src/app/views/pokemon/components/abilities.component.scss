@@ -8,12 +8,21 @@
 
     ion-card-header{
       height: 50px;
-      // background: #649CD9;
-      background: $sixtiary;
+      background: #649CD9; // $sixtiary;
       // background-image: url('/assets/images/degradate.png');
       // background-repeat: repeat;
       padding-top: 5px !important;
       padding-bottom: 5px !important;
+
+      &:before{
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 50%;
+        top: 0px;
+        left: 0px;
+        background: rgba(255, 255, 255, 0.1);
+      }
 
       ion-card-title{
         text-align: start;

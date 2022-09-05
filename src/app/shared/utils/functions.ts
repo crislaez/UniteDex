@@ -52,4 +52,9 @@ export const orderArray = (list: string[]) => {
   })
 }
 
+export const replaceLowBar = (text:string) => {
+  if(typeof text !== 'string') return
+  return text?.replace(/_/g,' ') || '';
+}
+
 

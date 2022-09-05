@@ -6,6 +6,7 @@ import { NoDataModule } from '@uniteDex/shared-ui/components/no-data/no-data.mod
 import { SpinnerModule } from '@uniteDex/shared-ui/components/spinner/spinner.module';
 import { PokemonModule } from '@uniteDex/shared/pokemon/pokemon.module';
 import { SharedModule } from '@uniteDex/shared/shared/shared.module';
+import { StatModule } from '@uniteDex/shared/stat/stat.module';
 import { AbilitiesComponent } from './components/abilities.component';
 import { BuildsComponent } from './components/builds.component';
 import { InfoComponent } from './components/info.component';
@@ -14,7 +15,8 @@ import { PokemonPageRoutingModule } from './pokemon-routing.module';
 
 const SHARED_MODULE = [
   PokemonModule,
-  SharedModule
+  SharedModule,
+  StatModule
 ];
 
 const SHARED_UI_MODULE = [

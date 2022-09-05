@@ -1,5 +1,6 @@
+import { Location } from '@angular/common';
 import { ChangeDetectionStrategy, Component, HostListener, ViewChild } from '@angular/core';
-import { IonContent, NavController } from '@ionic/angular';
+import { IonContent } from '@ionic/angular';
 import { Store } from '@ngrx/store';
 import { BattleItem, BattleItemActions, fromBattleItem } from '@uniteDex/shared/battle-item';
 import { BuildItem, BuildItemActions, fromBuildItem } from '@uniteDex/shared/build-item';
@@ -89,13 +90,13 @@ export class TierListPage {
 
   @HostListener('document:ionBackButton', ['$event'])
   private overrideHardwareBackAction($event) {
-    $event.detail.register(100, () => this.navCtrl.back());
+    $event.detail.register(100, () => this.location.back());
   }
 
 
   constructor(
     private store: Store,
-    private navCtrl: NavController,
+    private location: Location,
   ) { }
 
 

@@ -7,16 +7,27 @@
     margin: 0 auto;
 
     ion-card-header{
-      background: $sixtiary;
-      // background-image: url('/assets/images/degradate.png');
-      // background-repeat: repeat;
-
+      background: #649CD9; // $sixtiary;
       height: 50px;
+
+      &:before{
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 50%;
+        top: 0px;
+        left: 0px;
+        background: rgba(255, 255, 255, 0.1);
+      }
 
       ion-card-title{
         text-align: start;
         // text-shadow: 1px 1px 2px black;
       }
+    }
+
+    ion-range{
+      --bar-background-active: #FC8A1D !important;
     }
   }
 

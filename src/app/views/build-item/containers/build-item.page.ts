@@ -1,6 +1,7 @@
+import { Location } from '@angular/common';
 import { ChangeDetectionStrategy, Component, HostListener, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { IonContent, NavController } from '@ionic/angular';
+import { IonContent } from '@ionic/angular';
 import { Store } from '@ngrx/store';
 import { CoreConfigService } from '@uniteDex/core/services/core-config.service';
 import { BuildItemActions, fromBuildItem } from '@uniteDex/shared/build-item';
@@ -117,14 +118,14 @@ export class BuildItemPage {
 
   @HostListener('document:ionBackButton', ['$event'])
   private overrideHardwareBackAction($event) {
-    $event.detail.register(100, () => this.navCtrl.back());
+    $event.detail.register(100, () => this.location.back());
   }
 
 
   constructor(
     private store: Store,
+    private location: Location,
     private route: ActivatedRoute,
-    private navCtrl: NavController,
     public _core: CoreConfigService
   ) { }
 

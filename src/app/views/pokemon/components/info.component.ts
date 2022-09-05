@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { CoreConfigService } from '@uniteDex/core/services/core-config.service';
 import { Pokemon } from '@uniteDex/shared/pokemon';
-import { errorImage, getObjectKeys, trackById } from '@uniteDex/shared/utils/functions';
+import { StatLevel } from '@uniteDex/shared/stat/models';
+import { errorImage, getObjectKeys, replaceLowBar, trackById } from '@uniteDex/shared/utils/functions';
 
 @Component({
   selector: '<poke-unite-info',
@@ -34,8 +35,32 @@ import { errorImage, getObjectKeys, trackById } from '@uniteDex/shared/utils/fun
     </div>
   </ion-card>
 
+  <ion-card *ngIf="pokemon?.stats?.length > 0" class="text-color-light components-background-eighthiary margin-top-20 margin-bottom-60">
+    <ion-card-header>
+      <ion-card-title class="text-color-light span-bold displays-around height-1-3">
+        <div class="width-15 height-1-3">{{ 'COMMON.LV' | translate }} </div>
+        <div class="width-65 height-1-3"><ion-range  class="height-1-3" [min]="1" [max]="15" (ionChange)="changeLevel($event)"></ion-range></div>
+        <div class="width-15 height-1-3">{{ level }} </div>
+      </ion-card-title>
+    </ion-card-header>
+
+    <div class="displays-between">
+      <ng-container *ngFor="let key of getObjectKeys(pokemon?.stats[(level - 1)])">
+        <div *ngIf="key !== 'level'" class="text-start width-40 padding-10 capital-letter">
+          <ng-container *ngIf="key === 'crit'">{{ 'COMMON.CRITICAL' | translate }}</ng-container>
+          <ng-container *ngIf="key === 'cdr'">{{ 'COMMON.REDUCTION' | translate }}</ng-container>
+          <ng-container *ngIf="!['crit','cdr']?.includes(key)">{{ replaceLowBar(key) }}</ng-container>
+        </div>
+        <div *ngIf="key !== 'level'" class="text-end width-40 padding-10 capital-letter">
+          {{ pokemon?.stats[(level - 1)]?.[key] }}
+          <ng-container *ngIf="['crit','cdr']?.includes(key)">%</ng-container>
+        </div>
+      </ng-container>
+    </div>
+  </ion-card>
+
   <!-- IS NO DATA  -->
-  <ng-container *ngIf="(!pokemon?.['evolution'] || pokemon?.['evolution']?.length === 0) && !pokemon?.notes">
+  <ng-container *ngIf="(!pokemon?.['evolution'] || pokemon?.['evolution']?.length === 0) && !pokemon?.notes && (pokemon?.stats?.length === 0 || !pokemon?.stats)">
     <poke-unite-no-data [title]="'COMMON.NORESULT'" [image]="'assets/images/empty.png'" [top]="'15vh'"></poke-unite-no-data>
   </ng-container>
   `,
@@ -46,14 +71,20 @@ export class InfoComponent {
 
   trackById = trackById;
   errorImage = errorImage;
+  replaceLowBar = replaceLowBar;
   getObjectKeys = getObjectKeys;
-  @Input() pokemon: Partial<Pokemon>;
+  @Input() pokemon: Partial<Pokemon & {stats: StatLevel[]}>;
+  level = 1;
 
 
   constructor(
     public _core: CoreConfigService
   ) { }
 
+
+  changeLevel({detail:{value}}:any): void{
+    this.level = value
+  }
 
 
 }

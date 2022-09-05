@@ -1,13 +1,14 @@
+import { Location } from '@angular/common';
 import { ChangeDetectionStrategy, Component, HostListener, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { IonContent, NavController } from '@ionic/angular';
+import { IonContent } from '@ionic/angular';
 import { Store } from '@ngrx/store';
 import { CoreConfigService } from '@uniteDex/core/services/core-config.service';
 import { fromPokemon, PokemonActions } from '@uniteDex/shared/pokemon';
+import { StatsActions } from '@uniteDex/shared/stat';
 import { emptyObject, errorImage, getObjectKeys, gotToTop, trackById } from '@uniteDex/shared/utils/functions';
-import { map, switchMap } from 'rxjs/operators';
-
-
+import { map, switchMap, tap } from 'rxjs/operators';
+import * as fromPokemonPage from '../selectors/pokemon.selectors';
 @Component({
   selector: 'poke-unite-pokemon',
   template:`
@@ -17,48 +18,46 @@ import { map, switchMap } from 'rxjs/operators';
     </div>
 
     <div class="container components-background-dark">
-      <ng-container *ngIf="(pokemon$ | async) as pokemon">
-        <ng-container *ngIf="(status$ | async) as status">
-          <ng-container *ngIf="status !== 'pending'; else loader">
-            <ng-container *ngIf="status !== 'error'; else serverError">
-              <ng-container *ngIf="emptyObject(pokemon); else noData">
+      <ng-container *ngIf="(info$ | async) as info">
+        <ng-container *ngIf="info?.status !== 'pending'; else loader">
+          <ng-container *ngIf="info?.status !== 'error'; else serverError">
+            <ng-container *ngIf="emptyObject(info?.pokemon); else noData">
 
-                <div class="width-max displays-center">
-                  <ion-avatar class="pokemon-principal-image" slot="start">
-                    <ion-img loading="lazy" [src]="_core.imageUrl('pokemon',pokemon?.['name'])" loading="lazy" (ionError)="errorImage($event)"></ion-img>
-                  </ion-avatar>
-                </div>
+              <div class="width-max displays-center">
+                <ion-avatar class="pokemon-principal-image" slot="start">
+                  <ion-img loading="lazy" [src]="_core.imageUrl('pokemon',info?.pokemon?.['name'])" loading="lazy" (ionError)="errorImage($event)"></ion-img>
+                </ion-avatar>
+              </div>
 
-                <div class="width-max displays-around-center margin-top-20">
-                  <ion-chip *ngFor="let item of getObjectKeys(pokemon?.['tags']); trackBy: trackById">{{ pokemon?.['tags']?.[item] }}</ion-chip>
-                </div>
+              <div class="width-max displays-around-center margin-top-20">
+                <ion-chip *ngFor="let item of getObjectKeys(info?.pokemon?.['tags']); trackBy: trackById">{{ info?.pokemon?.['tags']?.[item] }}</ion-chip>
+              </div>
 
-                <div class="displays-center margin-top-10">
-                  <ion-chip *ngIf="pokemon?.['damage_type'] as damage_type" class="attack">{{ damage_type }} {{ 'COMMON.ATTACKER' | translate }}</ion-chip>
-                </div>
+              <div class="displays-center margin-top-10">
+                <ion-chip *ngIf="info?.pokemon?.['damage_type'] as damage_type" class="attack">{{ damage_type }} {{ 'COMMON.ATTACKER' | translate }}</ion-chip>
+              </div>
 
-                <ion-segment scrollable (ionChange)="segmentChanged($any($event))" [(ngModel)]="selected">
-                  <ion-segment-button *ngFor="let item of itemsSegments; let i = index;" [value]="item?.id" class="text-color-light">
-                    <ion-label class="capital-letter">{{ item?.label | translate }}</ion-label>
-                  </ion-segment-button>
-                </ion-segment>
+              <ion-segment scrollable (ionChange)="segmentChanged($any($event))" [(ngModel)]="selected">
+                <ion-segment-button *ngFor="let item of itemsSegments; let i = index;" [value]="item?.id" class="text-color-light">
+                  <ion-label class="capital-letter">{{ item?.label | translate }}</ion-label>
+                </ion-segment-button>
+              </ion-segment>
 
-                <poke-unite-abilities
-                  *ngIf="selected === options?.abilities"
-                  [pokemon]="pokemon">
-                </poke-unite-abilities>
+              <poke-unite-abilities
+                *ngIf="selected === options?.abilities"
+                [pokemon]="info?.pokemon">
+              </poke-unite-abilities>
 
-                <poke-unite-info
-                  *ngIf="selected === options?.info"
-                  [pokemon]="pokemon">
-                </poke-unite-info>
+              <poke-unite-info
+                *ngIf="selected === options?.info"
+                [pokemon]="info?.pokemon">
+              </poke-unite-info>
 
-                <poke-unite-builds
-                  *ngIf="selected === options?.builds"
-                  [pokemon]="pokemon">
-                </poke-unite-builds>
+              <poke-unite-builds
+                *ngIf="selected === options?.builds"
+                [pokemon]="info?.pokemon">
+              </poke-unite-builds>
 
-              </ng-container>
             </ng-container>
           </ng-container>
         </ng-container>
@@ -104,17 +103,12 @@ export class PokemonPage {
   showButton = false
   @ViewChild(IonContent, {static: true}) content: IonContent;
 
-  status$ = this.store.select(fromPokemon.selectStatus);
-  pokemon$ = this.route.params.pipe(
+  info$ = this.route.params.pipe(
     switchMap(({pokemonName}) =>
-      this.store.select(fromPokemon.selectPokemons).pipe(
-        map(allPokemons => {
-          return (allPokemons || [])?.find(({name}) => name === pokemonName) || {};
-        })
-      )
+      this.store.select(fromPokemonPage.selectPokemonInit(pokemonName))
     )
-    // ,tap(d => console.log(d))
   );
+
 
   selected = 1;
   itemsSegments = [
@@ -131,14 +125,14 @@ export class PokemonPage {
 
   @HostListener('document:ionBackButton', ['$event'])
   private overrideHardwareBackAction($event) {
-    $event.detail.register(100, () => this.navCtrl.back());
+    $event.detail.register(100, () => this.location.back());
   }
 
 
   constructor(
     private store: Store,
+    private location: Location,
     private route: ActivatedRoute,
-    private navCtrl: NavController,
     public _core: CoreConfigService
   ) { }
 
@@ -147,6 +141,7 @@ export class PokemonPage {
   doRefresh(event) {
     setTimeout(() => {
       this.store.dispatch(PokemonActions.loadPokemons({}))
+      this.store.dispatch(StatsActions.loadStats())
       event.target.complete();
     }, 500);
   }

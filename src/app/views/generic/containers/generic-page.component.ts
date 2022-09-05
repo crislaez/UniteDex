@@ -1,8 +1,9 @@
+import { Location } from '@angular/common';
 import { ChangeDetectionStrategy, Component, EventEmitter, HostListener, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Keyboard } from '@capacitor/keyboard';
-import { IonContent, ModalController, NavController, Platform } from '@ionic/angular';
+import { IonContent, ModalController, Platform } from '@ionic/angular';
 import { Store } from '@ngrx/store';
 import { CoreConfigService } from '@uniteDex/core/services/core-config.service';
 import { FilterModalComponent } from '@uniteDex/shared-ui/components/filter-modal/filter-modal.component';
@@ -13,7 +14,6 @@ import { Filter, fromPokemon, Pokemon, PokemonActions } from '@uniteDex/shared/p
 import { gotToTop, trackById } from '@uniteDex/shared/utils/functions';
 import { Observable } from 'rxjs';
 import { map, shareReplay, switchMap, tap } from 'rxjs/operators';
-
 
 @Component({
   selector: 'poke-unite-generic-page',
@@ -135,20 +135,19 @@ export class GenericPageComponent {
         })
       )
     )
-    // ,tap(d => console.log(d))
   );
 
   @HostListener('document:ionBackButton', ['$event'])
   private overrideHardwareBackAction($event) {
-    $event.detail.register(100, () => this.navCtrl.back());
+    $event.detail.register(100, () => this.location.back());
   }
 
 
   constructor(
     private store: Store,
     public platform: Platform,
+    private location: Location,
     private route: ActivatedRoute,
-    private navCtrl: NavController,
     private _core: CoreConfigService,
     public modalController: ModalController,
   ) { }

@@ -32,12 +32,15 @@
     "RANGE":"Range",
     "ROLES":"Role",
     "EVERYONE":"All",
-    "TIER_LIST":"Tier list"
+    "TIER_LIST":"Tier list",
+    "CRITICAL":"Critical-Hit Ratet",
+    "REDUCTION":"CD Reduction"
   },
   "ERRORS":{
     "ERROR_LOAD_POKEMONS":"Error loading pokemons",
     "ERROR_LOAD_POKEMON":"Error loading pokemon",
     "ERROR_LOAD_BATTLE_ITEMS":"Error loading battle items",
-    "ERROR_LOAD_BUILD_ITEMS":"Error loading build items"
+    "ERROR_LOAD_BUILD_ITEMS":"Error loading build items",
+    "ERROR_LOAD_STATS":"Error loading stats"
   }
 }

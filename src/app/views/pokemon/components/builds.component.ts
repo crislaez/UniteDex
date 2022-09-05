@@ -1,13 +1,14 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { CoreConfigService } from '@uniteDex/core/services/core-config.service';
 import { Pokemon } from '@uniteDex/shared/pokemon/models';
+import { StatLevel } from '@uniteDex/shared/stat/models';
 import { errorImage, itemNameFormat, trackById } from '@uniteDex/shared/utils/functions';
 
 @Component({
   selector: 'poke-unite-builds',
   template:`
-  <ion-card class="text-color-light components-background-eighthiary margin-top-20"
-    *ngFor="let build of pokemon?.builds; trackBy: trackById">
+  <ion-card *ngFor="let build of pokemon?.builds; trackBy: trackById"
+    class="text-color-light components-background-eighthiary margin-top-20">
 
     <ion-card-header>
       <ion-card-title *ngIf="build?.name" class="text-color-light span-bold">{{ build?.name }}</ion-card-title>
@@ -89,17 +90,13 @@ export class BuildsComponent {
   errorImage = errorImage;
   trackById = trackById;
   itemNameFormat = itemNameFormat;
-  @Input() pokemon: Partial<Pokemon>;
+  @Input() pokemon: Partial<Pokemon & {stats: StatLevel[]}>;
 
 
   constructor(
     public _core: CoreConfigService
   ) { }
 
-
-  // ngOnChanges(): void{
-  //   console.log(this.pokemon)
-  // }
 
   getMoves(basic: string[], upgrade: string[]): string[] {
     return [ ...(basic ?? []), ...(upgrade ?? []) ];
