@@ -4,6 +4,7 @@ export interface Emblem {
   "grade": string;
   "display_name": string;
   "color1": string;
+  "color2": string;
   "stats": StatEmblem[]
 }
 

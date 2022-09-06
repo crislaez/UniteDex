@@ -68,8 +68,7 @@ export class AppComponent {
     map((event: NavigationEnd) => {
       const { url = ''} = event || {}
       const [, route = 'home', params = null ] = url?.split('/') || [];
-      console.log(route)
-
+      // console.log(route)
       const paramsTitle = {
         'pokemon':'COMMON.POKEMON',
         'battleItem':'COMMON.BATTLE_ITEMS',

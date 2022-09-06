@@ -1,11 +1,13 @@
+import { Emblem } from './../../../shared/emblem/models/index';
 import { ChangeDetectionStrategy, Component, ViewChild, EventEmitter } from '@angular/core';
-import { IonContent } from '@ionic/angular';
+import { IonContent, ModalController } from '@ionic/angular';
 import { Store } from '@ngrx/store';
 import { CoreConfigService } from '@uniteDex/core/services/core-config.service';
 import { EmblemActions } from '@uniteDex/shared/emblem';
 import { emptyObject, errorImage, getObjectKeys, gotToTop, trackById } from '@uniteDex/shared/utils/functions';
 import { tap, switchMap, map, startWith } from 'rxjs/operators';
 import * as fromEmblem from '../selectors/emblem.selectors';
+import { EmblemDetailModalComponent } from '../components/emblem-detail-modal.component';
 
 @Component({
   selector: 'app-emblem',
@@ -38,10 +40,16 @@ import * as fromEmblem from '../selectors/emblem.selectors';
               </div>
 
               <ng-container *ngFor="let emblem of info?.emblemList; trackBy: trackById">
-                <ion-avatar slot="start">
-                  <ion-img loading="lazy" [src]="_core.getEmblemUrl +'pokedex/'+ emblem?.name +'.png'" [alt]="emblem?.name" (ionError)="errorImage($event)"></ion-img>
-                  <!-- <ion-img loading="lazy" [src]="_core.getEmblemUrl +'pokedex/'+ emblem?.name +'.png'" [alt]="emblem?.name" (ionError)="errorImage($event)"></ion-img> -->
-                </ion-avatar>
+                <div class="div-avatar">
+                  <ion-avatar slot="start" (click)="openPokemondModal(emblem, info?.emblems)">
+                    <ion-img loading="lazy" [src]="_core.getEmblemUrl +'pokedex/'+ emblem?.name +'.png'" [alt]="emblem?.name" (ionError)="errorImage($event)"></ion-img>
+                  </ion-avatar>
+
+                  <div class="emblem-color displays-around-center">
+                    <ion-img *ngFor="let color of getEmblemColors(emblem)" loading="lazy" [src]="_core.getEmblemUrl +'sets/'+ color +'.png'" [alt]="color" (ionError)="errorImage($event)"></ion-img>
+                  </div>
+                </div>
+
               </ng-container>
 
               <poke-unite-infinite-scroll
@@ -115,16 +123,15 @@ export class EmblemPage {
         })
       )
     )
-    ,tap(d => console.log(d))
+    // ,tap(d => console.log(d))
   );
 
 
   constructor(
     private store: Store,
-    public _core: CoreConfigService
-  ) {
-    console.log(this._core.getEmblemUrl)
-  }
+    public _core: CoreConfigService,
+    public modalController: ModalController,
+  ) { }
 
 
   ionViewWillEnter(): void{
@@ -149,6 +156,27 @@ export class EmblemPage {
       this.trigger.next(this.componentStatus);
       event.target.complete();
     },500)
+  }
+
+  getEmblemColors(emblem: Emblem): string []{
+    const { color1 = null, color2 = null } = emblem || {};
+    return [
+      ...(color1 ? [color1] : []),
+      ...(color2 ? [color2] : []),
+    ];
+  }
+
+  // SHOW SINGLE CARD
+  async openPokemondModal(emblem: Emblem, emblemList: Emblem[]) {
+    const selectedEmblems = (emblemList || [])?.filter(({display_name}) => display_name === emblem?.display_name);
+
+    const modal = await this.modalController.create({
+      component: EmblemDetailModalComponent,
+      componentProps:{
+        emblemList
+      }
+    });
+    return await modal.present();
   }
 
   // SCROLL EVENT
