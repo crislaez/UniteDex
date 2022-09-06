@@ -56,15 +56,10 @@ export class EmblemEffects implements OnInitEffects {
   });
 
 
-
   ngrxOnInitEffects() {
     return StatsActions.initLoadEmblem();
   };
 
-
-  // init$ = createEffect(() => {
-  //   return of(StatsActions.loadEmblems(), StatsActions.loadEmblemsColors())
-  // })
 
 
   constructor(

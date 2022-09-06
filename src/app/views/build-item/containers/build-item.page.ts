@@ -82,8 +82,8 @@ export class BuildItemPage {
   errorImage = errorImage;
   emptyObject = emptyObject;
   getObjectKeys = getObjectKeys;
-  showButton = false
   @ViewChild(IonContent, {static: true}) content: IonContent;
+  showButton = false
   level = 1;
   status$ = this.store.select(fromBuildItem.selectStatus);
   buildItem$ = this.route.params.pipe(

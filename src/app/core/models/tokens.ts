@@ -5,6 +5,7 @@ export interface Environment {
   baseEndpoint: string;
   firebaseUrlImages: string;
   firebaseToken:string;
+  emblemUrl:string;
   perPage: number;
 }
 

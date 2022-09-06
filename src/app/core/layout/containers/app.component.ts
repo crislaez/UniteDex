@@ -15,14 +15,11 @@ import { filter, map } from 'rxjs/operators';
       <ion-toolbar *ngIf="(currentSection$ | async) as currentSection">
         <!-- nav icon  -->
         <ion-menu-button *ngIf="!['pokemon','buildItem','battleItem']?.includes(currentSection?.route)" fill="clear" size="small" slot="start" (click)="open()" class="text-color-light"></ion-menu-button>
-
         <!-- back button  -->
         <ion-back-button *ngIf="['pokemon','buildItem','battleItem']?.includes(currentSection?.route)" class="text-color-light" slot="start" [defaultHref]="redirectoTo(currentSection)" [text]="''"></ion-back-button>
-
         <ion-title class="text-color-light big-size" >
           {{ replaceTitle(currentSection?.label) | translate }}
         </ion-title>
-
         <div size="small" slot="end" class="div-clear"  >
         </div>
       </ion-toolbar>
@@ -39,7 +36,9 @@ import { filter, map } from 'rxjs/operators';
 
       <ion-content >
       <!-- lines="none" -->
-        <ion-item detail class="text-color-light" *ngFor="let item of links; trackBy: trackById" [routerLink]="['/'+item?.link]" (click)="openEnd()">{{ item?.text | translate }}</ion-item>
+        <ng-container *ngFor="let item of links; trackBy: trackById" >
+          <ion-item detail class="text-color-light" [disabled]="item?.disabled" [routerLink]="['/'+item?.link]" (click)="openEnd()">{{ item?.text | translate }}</ion-item>
+        </ng-container>
       </ion-content >
     </ion-menu>
 
@@ -69,7 +68,7 @@ export class AppComponent {
     map((event: NavigationEnd) => {
       const { url = ''} = event || {}
       const [, route = 'home', params = null ] = url?.split('/') || [];
-      // console.log(route)
+      console.log(route)
 
       const paramsTitle = {
         'pokemon':'COMMON.POKEMON',
@@ -83,19 +82,20 @@ export class AppComponent {
         'pokemon':{route, label: params},
         'battleItem':{route, label: params},
         'buildItem':{route, label: params},
-        'list':{route, label: paramsTitle?.[params] || params}
+        'list':{route, label: paramsTitle?.[params] || params},
+        'emblem':{route, label:'COMMON.EMBLEMS'},
       }[route] || {route: 'home', label:'COMMON.TITLE'};
     })
     // ,tap(d => console.log(d))
   );
 
   links = [
-    {id:1, link:'home', text:'COMMON.HOME'},
-    {id:2, link:'list/pokemon', text:'COMMON.POKEMON'},
-    {id:3, link:'list/buildItem', text:'COMMON.BUILD_ITEMS'},
-    {id:4, link:'list/battleItem', text:'COMMON.BATTLE_ITEMS'},
-    {id:5, link:'tierList', text:'COMMON.TIER_LIST'},
-    {id:6, link:'emblem', text:'COMMON.EMBLEMS'}
+    {id:1, link:'home', text:'COMMON.HOME', disabled: false},
+    {id:2, link:'list/pokemon', text:'COMMON.POKEMON', disabled: false},
+    {id:3, link:'list/buildItem', text:'COMMON.BUILD_ITEMS', disabled: false},
+    {id:4, link:'list/battleItem', text:'COMMON.BATTLE_ITEMS', disabled: false},
+    {id:5, link:'tierList', text:'COMMON.TIER_LIST', disabled: false},
+    {id:6, link:'emblem', text:'COMMON.EMBLEMS', disabled: false}
   ];
 
   @HostListener('document:ionBackButton', ['$event'])

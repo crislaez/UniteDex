@@ -11,20 +11,24 @@ export const selectEmbelmState = createSelector(
   (state) => state[emblemFeatureKey]
 );
 
-export const selectStorageStatus = createSelector(
+export const selectEmbelmsStatus = createSelector(
   selectEmbelmState,
   (state) => state?.status
 );
 
 export const selectEmbelms = createSelector(
   selectEmbelmState,
-  (state) => state.emblems
+  (state) => state?.emblems
 );
 
-
-export const selectStorageErrors = createSelector(
+export const selectEmbelmsList = createSelector(
   selectEmbelmState,
-  (state) => state.error
+  (state) => state?.emblemList
+);
+
+export const selectEmbelmsErrors = createSelector(
+  selectEmbelmState,
+  (state) => state?.error
 );
 
 
@@ -35,20 +39,20 @@ export const selectEmbelmColorState = createSelector(
   (state) => state[emblemColorsFeatureKey]
 );
 
-export const selectRechargeStatus = createSelector(
+export const selectEmbelmsColorsStatus = createSelector(
   selectEmbelmColorState,
   (state) => state?.status
 );
 
 export const selectEmbelmsColors = createSelector(
   selectEmbelmColorState,
-  (state) => state.emblemColors
+  (state) => state?.emblemColors
 );
 
 
-export const selectRechargeErrors = createSelector(
+export const selectEmbelmsColorsErrors = createSelector(
   selectEmbelmColorState,
-  (state) => state.error
+  (state) => state?.error
 );
 
 
