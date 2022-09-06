@@ -3,21 +3,23 @@ import { NgModule } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
 import { NoDataModule } from '@uniteDex/shared-ui/components/no-data/no-data.module';
-import { SpinnerModule } from '@uniteDex/shared-ui/components/spinner/spinner.module';
-import { BuildItemModule } from '@uniteDex/shared/build-item/build-item.module';
+import { EmblemModule } from '@uniteDex/shared/emblem/emblem.module';
 import { SharedModule } from '@uniteDex/shared/shared/shared.module';
-import { BuildItemPageRoutingModule } from './build-item-routing.module';
-import { BuildItemInfoComponent } from './components/build-item-info.component';
-import { BuildItemPage } from './containers/build-item.page';
+import { EmblemPage } from './containers/emblem.page';
+import { EmblemPageRoutingModule } from './emblem-routing.module';
 
 const SHARED_MODULE = [
-  BuildItemModule,
-  SharedModule
+  EmblemModule,
+  SharedModule,
 ];
 
 const SHARED_UI_MODULE = [
   NoDataModule,
-  SpinnerModule,
+  // SpinnerModule,
+  // FilterModalModule,
+  // SkeletonCardModule,
+  // PokemonCardModule,
+  // InfiniteScrollModule,
 ];
 
 
@@ -28,11 +30,8 @@ const SHARED_UI_MODULE = [
     ...SHARED_MODULE,
     ...SHARED_UI_MODULE,
     TranslateModule.forChild(),
-    BuildItemPageRoutingModule
+    EmblemPageRoutingModule
   ],
-  declarations: [
-    BuildItemPage,
-    BuildItemInfoComponent
-  ]
+  declarations: [EmblemPage]
 })
-export class BuildItemPageModule {}
+export class EmblemPageModule {}

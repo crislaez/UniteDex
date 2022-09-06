@@ -17,46 +17,27 @@ import { map, switchMap } from 'rxjs/operators';
     </div>
 
     <div class="container components-background-dark">
-      <ng-container *ngIf="(battleItem$ | async) as pokemon">
+      <ng-container *ngIf="(buildItem$ | async) as buildItem">
         <ng-container *ngIf="(status$ | async) as status">
           <ng-container *ngIf="status !== 'pending'; else loader">
             <ng-container *ngIf="status !== 'error'; else serverError">
-              <ng-container *ngIf="emptyObject(pokemon); else noData">
+              <ng-container *ngIf="emptyObject(buildItem); else noData">
 
                 <div class="width-max displays-center">
-                  <ion-avatar class="pokemon-principal-image" slot="start">
-                    <ion-img loading="lazy" [src]="_core.imageUrl('buildItem',pokemon?.['name'])" loading="lazy" (ionError)="errorImage($event)"></ion-img>
+                  <ion-avatar class="build-principal" slot="start">
+                    <ion-img loading="lazy" [src]="_core.imageUrl('buildItem',buildItem?.['name'])" loading="lazy" (ionError)="errorImage($event)"></ion-img>
                   </ion-avatar>
                 </div>
 
-                <!-- <div class="width-max displays-around-center margin-top-20">
-                  <ion-chip *ngFor="let item of getObjectKeys(pokemon?.['tags']); trackBy: trackById">{{ pokemon?.['tags']?.[item] }}</ion-chip>
-                </div> -->
-
                 <div class="displays-center margin-top-10">
-                  <ion-chip *ngIf="pokemon?.['damage_type'] as damage_type" class="attack">{{ damage_type }} {{ 'COMMON.ATTACKER' | translate }}</ion-chip>
+                  <ion-chip *ngIf="buildItem?.['damage_type'] as damage_type" class="attack">{{ damage_type }} {{ 'COMMON.ATTACKER' | translate }}</ion-chip>
                 </div>
 
-                <!-- <ion-segment scrollable (ionChange)="segmentChanged($any($event))" [(ngModel)]="selected">
-                  <ion-segment-button *ngFor="let item of itemsSegments; let i = index;" [value]="item?.id" class="text-color-light">
-                    <ion-label class="capital-letter">{{ item?.label | translate }}</ion-label>
-                  </ion-segment-button>
-                </ion-segment>
-
-                <poke-unite-abilities
-                  *ngIf="selected === 1"
-                  [pokemon]="pokemon">
-                </poke-unite-abilities>
-
-                <poke-unite-info
-                  *ngIf="selected === 2"
-                  [pokemon]="pokemon">
-                </poke-unite-info>
-
-                <poke-unite-builds
-                  *ngIf="selected === 3"
-                  [pokemon]="pokemon">
-                </poke-unite-builds> -->
+                <poke-unite-build-item-info
+                  [buildItem]="buildItem"
+                  [level]="level"
+                  (change)="changeLevel($event)">
+                </poke-unite-build-item-info>
 
               </ng-container>
             </ng-container>
@@ -103,17 +84,16 @@ export class BuildItemPage {
   getObjectKeys = getObjectKeys;
   showButton = false
   @ViewChild(IonContent, {static: true}) content: IonContent;
-
+  level = 1;
   status$ = this.store.select(fromBuildItem.selectStatus);
-  battleItem$ = this.route.params.pipe(
+  buildItem$ = this.route.params.pipe(
     switchMap(({buildItemName}) =>
       this.store.select(fromBuildItem.selectBuildItems).pipe(
-        map((allBattleItems) => {
-          return (allBattleItems || [])?.find(({name}) => name === buildItemName) || {}
+        map((allBuildItems) => {
+          return (allBuildItems || [])?.find(({name}) => name === buildItemName) || {}
         })
       )
     )
-    // ,tap(d => console.log(d))
   );
 
   @HostListener('document:ionBackButton', ['$event'])
@@ -133,7 +113,8 @@ export class BuildItemPage {
   // REFRESH
   doRefresh(event) {
     setTimeout(() => {
-      this.store.dispatch(BuildItemActions.loadBuildItems({}))
+      this.level = 1;
+      this.store.dispatch(BuildItemActions.loadBuildItems({}));
       event.target.complete();
     }, 500);
   }
@@ -142,6 +123,10 @@ export class BuildItemPage {
   logScrolling({detail:{scrollTop}}): void{
     if(scrollTop >= 300) this.showButton = true
     else this.showButton = false
+  }
+
+  changeLevel(level: number): void{
+    this.level = level;
   }
 
 

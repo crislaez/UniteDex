@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { CoreConfigService } from '@uniteDex/core/services/core-config.service';
 import { BattleItemActions, fromBattleItem } from '@uniteDex/shared/battle-item';
 import { emptyObject, errorImage, getObjectKeys, gotToTop, trackById } from '@uniteDex/shared/utils/functions';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-battle-item',
@@ -17,46 +17,25 @@ import { map, switchMap, tap } from 'rxjs/operators';
     </div>
 
     <div class="container components-background-dark">
-      <ng-container *ngIf="(battleItem$ | async) as pokemon">
+      <ng-container *ngIf="(battleItem$ | async) as battleItem">
         <ng-container *ngIf="(status$ | async) as status">
           <ng-container *ngIf="status !== 'pending'; else loader">
             <ng-container *ngIf="status !== 'error'; else serverError">
-              <ng-container *ngIf="emptyObject(pokemon); else noData">
+              <ng-container *ngIf="emptyObject(battleItem); else noData">
 
                 <div class="width-max displays-center">
                   <ion-avatar class="pokemon-principal-image" slot="start">
-                    <ion-img loading="lazy" [src]="_core.imageUrl('battleItem',pokemon?.['name'])" loading="lazy" (ionError)="errorImage($event)"></ion-img>
+                    <ion-img loading="lazy" [src]="_core.imageUrl('battleItem',battleItem?.['name'])" loading="lazy" (ionError)="errorImage($event)"></ion-img>
                   </ion-avatar>
                 </div>
 
-                <!-- <div class="width-max displays-around-center margin-top-20">
-                  <ion-chip *ngFor="let item of getObjectKeys(pokemon?.['tags']); trackBy: trackById">{{ pokemon?.['tags']?.[item] }}</ion-chip>
-                </div> -->
-
                 <div class="displays-center margin-top-10">
-                  <ion-chip *ngIf="pokemon?.['damage_type'] as damage_type" class="attack">{{ damage_type }} {{ 'COMMON.ATTACKER' | translate }}</ion-chip>
+                  <ion-chip *ngIf="battleItem?.['damage_type'] as damage_type" class="attack">{{ damage_type }} {{ 'COMMON.ATTACKER' | translate }}</ion-chip>
                 </div>
 
-                <!-- <ion-segment scrollable (ionChange)="segmentChanged($any($event))" [(ngModel)]="selected">
-                  <ion-segment-button *ngFor="let item of itemsSegments; let i = index;" [value]="item?.id" class="text-color-light">
-                    <ion-label class="capital-letter">{{ item?.label | translate }}</ion-label>
-                  </ion-segment-button>
-                </ion-segment>
-
-                <poke-unite-abilities
-                  *ngIf="selected === 1"
-                  [pokemon]="pokemon">
-                </poke-unite-abilities>
-
-                <poke-unite-info
-                  *ngIf="selected === 2"
-                  [pokemon]="pokemon">
-                </poke-unite-info>
-
-                <poke-unite-builds
-                  *ngIf="selected === 3"
-                  [pokemon]="pokemon">
-                </poke-unite-builds> -->
+                <poke-unite-battle-item-info
+                  [battleItem]="battleItem">
+                </poke-unite-battle-item-info>
 
               </ng-container>
             </ng-container>
@@ -112,7 +91,6 @@ export class BattleItemPage {
         })
       )
     )
-    ,tap(d => console.log(d))
   );
 
   @HostListener('document:ionBackButton', ['$event'])

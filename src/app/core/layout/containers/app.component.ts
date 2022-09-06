@@ -14,10 +14,10 @@ import { filter, map } from 'rxjs/operators';
     <ion-header class="ion-no-border">    <!-- collapse="condense"  -->
       <ion-toolbar *ngIf="(currentSection$ | async) as currentSection">
         <!-- nav icon  -->
-        <ion-menu-button *ngIf="['home']?.includes(currentSection?.route)" fill="clear" size="small" slot="start" (click)="open()" class="text-color-light"></ion-menu-button>
+        <ion-menu-button *ngIf="!['pokemon','buildItem','battleItem']?.includes(currentSection?.route)" fill="clear" size="small" slot="start" (click)="open()" class="text-color-light"></ion-menu-button>
 
         <!-- back button  -->
-        <ion-back-button *ngIf="!['home']?.includes(currentSection?.route)" class="text-color-light" slot="start" [defaultHref]="redirectoTo(currentSection)" [text]="''"></ion-back-button>
+        <ion-back-button *ngIf="['pokemon','buildItem','battleItem']?.includes(currentSection?.route)" class="text-color-light" slot="start" [defaultHref]="redirectoTo(currentSection)" [text]="''"></ion-back-button>
 
         <ion-title class="text-color-light big-size" >
           {{ replaceTitle(currentSection?.label) | translate }}
@@ -94,7 +94,8 @@ export class AppComponent {
     {id:2, link:'list/pokemon', text:'COMMON.POKEMON'},
     {id:3, link:'list/buildItem', text:'COMMON.BUILD_ITEMS'},
     {id:4, link:'list/battleItem', text:'COMMON.BATTLE_ITEMS'},
-    {id:5, link:'tierList', text:'COMMON.TIER_LIST'}
+    {id:5, link:'tierList', text:'COMMON.TIER_LIST'},
+    {id:6, link:'emblem', text:'COMMON.EMBLEMS'}
   ];
 
   @HostListener('document:ionBackButton', ['$event'])

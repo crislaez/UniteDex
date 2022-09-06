@@ -27,6 +27,10 @@ const routes: Routes = [
     loadChildren: () => import('./views/tier-list/tier-list.module').then( m => m.TierListPageModule)
   },
   {
+    path: 'emblem',
+    loadChildren: () => import('./views/emblem/emblem.module').then( m => m.EmblemPageModule)
+  },
+  {
     path: '',
     redirectTo: 'home',
     pathMatch:'full'

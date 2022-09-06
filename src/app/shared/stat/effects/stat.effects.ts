@@ -33,9 +33,6 @@ export class StatEffects implements OnInitEffects {
   ngrxOnInitEffects() {
     return StatsActions.loadStats()
   };
-  // initEffect$ = createEffect(() => {
-  //   return of(StatsActions.loadStats())
-  // })
 
 
   constructor(

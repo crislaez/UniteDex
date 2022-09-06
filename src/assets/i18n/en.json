@@ -34,13 +34,16 @@
     "EVERYONE":"All",
     "TIER_LIST":"Tier list",
     "CRITICAL":"Critical-Hit Ratet",
-    "REDUCTION":"CD Reduction"
+    "REDUCTION":"CD Reduction",
+    "EMBLEMS":"Emblems"
   },
   "ERRORS":{
     "ERROR_LOAD_POKEMONS":"Error loading pokemons",
     "ERROR_LOAD_POKEMON":"Error loading pokemon",
     "ERROR_LOAD_BATTLE_ITEMS":"Error loading battle items",
     "ERROR_LOAD_BUILD_ITEMS":"Error loading build items",
-    "ERROR_LOAD_STATS":"Error loading stats"
+    "ERROR_LOAD_STATS":"Error loading stats",
+    "ERROR_LOAD_EMBLEMS":"Error loading emblems",
+    "ERROR_LOAD_EMBLEMS_COLORS":"Error loading emblems colors"
   }
 }

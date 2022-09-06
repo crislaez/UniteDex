@@ -1,0 +1,20 @@
+@import '../../../../theme/variables.scss';
+
+:host{
+  width: 100%;
+
+  ion-card{
+    margin: 0 auto;
+
+    ion-chip{
+      width: 40%;
+      text-align: center;
+
+      ion-icon{
+        margin-right: 5%;
+        color: $primary;
+      }
+    }
+  }
+
+}

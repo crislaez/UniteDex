@@ -95,10 +95,10 @@ import { map, shareReplay, switchMap, tap } from 'rxjs/operators';
     </ion-fab>
   </ion-content>
   `,
-  styleUrls: ['./generic-page.component.scss'],
+  styleUrls: ['./generic-page.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class GenericPageComponent {
+export class GenericPage {
 
   gotToTop = gotToTop;
   trackById = trackById;

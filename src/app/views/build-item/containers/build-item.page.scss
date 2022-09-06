@@ -5,27 +5,21 @@
   height: 250px !important;
 }
 
-.pokemon-principal-image{
-  // width: 80%;
-  // height: auto;
+.build-principal{
   width: 17em;
   height: 17em;
   margin-top: -150px;
-  // border: 5px solid $primary;
-  // border: 5px solid $secondary;
-  // border: 5px solid $fourtiary;
+
 }
 
 .attack {
   background: #649CD9;
 }
 
-ion-segment{
-  padding-top: 20px;
-  width: 100%;
+// ion-range{
+//   --bar-background-active: #FC8A1D !important;
+// }
 
-  ion-segment-button {
-    // --background-checked: red;
-    --color-checked: #724ABC;
-  }
-}
+// .color-green{
+//   color: #7FFF7F;
+// }
