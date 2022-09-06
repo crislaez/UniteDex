@@ -3,25 +3,25 @@
 UniteDex es una aplicación hecha en Ionic (Angular, TypeScript, Sass/Css, Html, Rxjs, Ngrx).
 <!-- API publica PokeApi (https://pokeapi.co/about) -->
 
-<img src="https://github.com/crislaez/Pokepedia/blob/master/src/assets/images/unitedex_1.jpg" />
+<img src="https://github.com/crislaez/UniteDex/blob/master/src/assets/images/unitedex_1.jpg" />
 <hr>
-<img src="https://github.com/crislaez/Pokepedia/blob/master/src/assets/images/unitedex_2.jpg" />
+<img src="https://github.com/crislaez/UniteDex/blob/master/src/assets/images/unitedex_2.jpg" />
 <hr>
-<img src="https://github.com/crislaez/Pokepedia/blob/master/src/assets/images/unitedex_3.jpg" />
+<img src="https://github.com/crislaez/UniteDex/blob/master/src/assets/images/unitedex_3.jpg" />
 <hr>
-<img src="https://github.com/crislaez/Pokepedia/blob/master/src/assets/images/unitedex_4.jpg" />
+<img src="https://github.com/crislaez/UniteDex/blob/master/src/assets/images/unitedex_4.jpg" />
 <hr>
-<img src="https://github.com/crislaez/Pokepedia/blob/master/src/assets/images/unitedex_5.jpg" />
+<img src="https://github.com/crislaez/UniteDex/blob/master/src/assets/images/unitedex_5.jpg" />
 <hr>
-<img src="https://github.com/crislaez/Pokepedia/blob/master/src/assets/images/unitedex_6.jpg" />
+<img src="https://github.com/crislaez/UniteDex/blob/master/src/assets/images/unitedex_6.jpg" />
 <hr>
-<img src="https://github.com/crislaez/Pokepedia/blob/master/src/assets/images/unitedex_7.jpg" />
+<img src="https://github.com/crislaez/UniteDex/blob/master/src/assets/images/unitedex_7.jpg" />
 <hr>
-<img src="https://github.com/crislaez/Pokepedia/blob/master/src/assets/images/unitedex_8.jpg" />
+<img src="https://github.com/crislaez/UniteDex/blob/master/src/assets/images/unitedex_8.jpg" />
 <hr>
-<img src="https://github.com/crislaez/Pokepedia/blob/master/src/assets/images/unitedex_9.jpg" />
+<img src="https://github.com/crislaez/UniteDex/blob/master/src/assets/images/unitedex_9.jpg" />
 <hr>
-<img src="https://github.com/crislaez/Pokepedia/blob/master/src/assets/images/unitedex_10.jpg" />
+<img src="https://github.com/crislaez/UniteDex/blob/master/src/assets/images/unitedex_10.jpg" />
 <hr>
 
 
