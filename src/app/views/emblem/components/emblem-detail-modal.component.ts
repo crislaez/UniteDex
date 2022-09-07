@@ -50,21 +50,21 @@ import { errorImage, getEmblemColors, getObjectKeys, gotToTop, replaceLowBar, tr
             *ngFor="let color of selectColors; trackBy: trackById">
             <div class="displays-around-center">
               <div class="width-25 padding-top-bottom-5 capital-letter">
-                <div class="circle displays-center" [ngStyle]="{'background':color?.name, 'color':'#282c34'}">
+                <div class="circle displays-center" [ngStyle]="{'background':color?.name, 'text-shadow':'1px 1px 1px black'}">
                   <div>{{ color?.count1 }}</div>
                 </div>
               </div>
               <div class="width-65 padding-top-bottom-5">{{ color?.bonus1 }} % {{ color?.stat_desc }}</div>
 
               <div class="width-25 padding-top-bottom-5 capital-letter">
-                <div class="circle displays-center" [ngStyle]="{'background':color?.name, 'color':'#282c34'}">
+                <div class="circle displays-center" [ngStyle]="{'background':color?.name, 'text-shadow':'1px 1px 1px black'}">
                   <div>{{ color?.count2 }}</div>
                 </div>
               </div>
               <div class="width-65 padding-top-bottom-5">{{ color?.bonus2 }} % {{ color?.stat_desc }}</div>
 
               <div class="width-25 padding-top-bottom-5 capital-letter">
-                <div class="circle displays-center" [ngStyle]="{'background':color?.name, 'color':'#282c34'}">
+                <div class="circle displays-center" [ngStyle]="{'background':color?.name, 'text-shadow':'1px 1px 1px black'}">
                   <div>{{ color?.count3 }}</div>
                 </div>
               </div>

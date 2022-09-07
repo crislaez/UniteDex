@@ -10,7 +10,7 @@ import { FilterModalComponent } from '@uniteDex/shared-ui/components/filter-moda
 import { BattleItemActions, fromBattleItem } from '@uniteDex/shared/battle-item';
 import { BuildItemActions, fromBuildItem } from '@uniteDex/shared/build-item';
 import { EntityStatus } from '@uniteDex/shared/models/index';
-import { Filter, fromPokemon, Pokemon, PokemonActions } from '@uniteDex/shared/pokemon';
+import { PokemonFilter, fromPokemon, Pokemon, PokemonActions } from '@uniteDex/shared/pokemon';
 import { gotToTop, trackById } from '@uniteDex/shared/utils/functions';
 import { Observable } from 'rxjs';
 import { map, shareReplay, switchMap, tap } from 'rxjs/operators';
@@ -109,7 +109,7 @@ export class GenericPage {
 
   pokemonFilters$ = this.store.select(fromPokemon.selecPokemonFilters);
   status$: Observable<EntityStatus>;
-  trigger = new EventEmitter<{slice:number, filters:Filter, option:string, refresh:boolean}>();
+  trigger = new EventEmitter<{slice:number, filters:PokemonFilter, option:string, refresh:boolean}>();
   componentStatus:any = {
     slice:this.perPage,
     filters:{},
@@ -273,25 +273,21 @@ export class GenericPage {
       initialBreakpoint: 0.45, //modal height
     });
 
-    modal.onDidDismiss()
-      .then((responseModal) => {
-        const { data } = responseModal || {};
-        if(!!data || Object.keys(data || {})?.length > 0){
-          this.componentStatus = {
-            ...(this.componentStatus ?? {}),
-            'filters':{
-              ...(this.componentStatus?.filters ?? {}),
-              ...((data as any) ?? {}),
-            },
-            refresh:false,
-            slice: this.perPage
-          };
+    modal.present();
+    const { data } = await modal.onDidDismiss();
 
-          this.trigger.next(this.componentStatus);
-        }
-    });
+    if(!data || Object.keys(data || {})?.length === 0) return;
 
-    return await modal.present();
+    this.componentStatus = {
+      ...(this.componentStatus ?? {}),
+      'filters':{
+        ...(this.componentStatus?.filters ?? {}),
+        ...((data as any) ?? {}),
+      },
+      refresh:false,
+      slice: this.perPage
+    };
+    this.trigger.next(this.componentStatus);
   }
 
   // FILTER PARSER
@@ -305,8 +301,7 @@ export class GenericPage {
   }
 
   // FILTER ITEMS
-  filterPokemonList(pokemon: Pokemon[], filters: Filter & {name?:string}): any{
-    // console.log('dentro')
+  filterPokemonList(pokemon: Pokemon[], filters: PokemonFilter & {name?:string}): Pokemon[] {
     const { name = null, damageType = null, difficulty = null, range = null, role = null } = filters || {};
 
     let resultPokemon = [...pokemon];

@@ -36,7 +36,8 @@
     "CRITICAL":"Critical-Hit Ratet",
     "REDUCTION":"CD Reduction",
     "EMBLEMS":"Emblems",
-    "COOLDOWN_REDUCTION":"Move Cooldown Reduction"
+    "COOLDOWN_REDUCTION":"Move Cooldown Reduction",
+    "COLORS":"Colors"
   },
   "ERRORS":{
     "ERROR_LOAD_POKEMONS":"Error loading pokemons",

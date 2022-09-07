@@ -36,4 +36,8 @@ export interface StatEmblem {
   "sp_defense":number;
 }
 
+export interface EmblemFilter {
+  "name"?:string;
+  "color"?:string;
+}
 

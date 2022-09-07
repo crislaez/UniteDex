@@ -15,7 +15,7 @@ export interface Pokemon {
   'evolution':Evolution[];
 }
 
-export interface Filter {
+export interface PokemonFilter {
   "name"?:string;
   "damageType"?:string;
   "range"?:string

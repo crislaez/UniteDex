@@ -2,14 +2,14 @@
 import { createReducer, on } from '@ngrx/store';
 import { EntityStatus } from '@uniteDex/shared/models';
 import * as PokemonActions from '../actions/pokemon.actions';
-import { Filter, Pokemon } from '../models';
+import { PokemonFilter, Pokemon } from '../models';
 
 export const pokemonsFeatureKey = 'pokemon';
 
 export interface State {
   status: EntityStatus;
   pokemons?: Pokemon[];
-  filters?: Filter;
+  filters?: PokemonFilter;
   pokemonFilters?:{[key:string]:string};
   error?: unknown;
 }

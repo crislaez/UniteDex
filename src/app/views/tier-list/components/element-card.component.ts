@@ -22,6 +22,10 @@ import { errorImage, getObjectKeys, orderArray, sliceText, trackById } from '@un
         *ngFor="let item of tierList[key]; let i = index; trackBy: trackById"
         [routerLink]="['/'+type+'/'+item?.name]">
 
+        <div class="ion-card-pokeball">
+          <div class="ion-card-pokeball-circle"></div>
+        </div>
+
         <div class="marker "*ngIf="['Up','Down']?.includes(item?.tier_change)" [ngStyle]="{'color':item?.tier_change === 'Up' ? '#44EE44': '#FF2D82'}">
           <ng-container *ngIf="item?.tier_change === 'Up'" >
             <ion-icon name="caret-up-outline"></ion-icon>

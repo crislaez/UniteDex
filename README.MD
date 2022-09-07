@@ -50,6 +50,7 @@ Release date: Septiembre 06, 2022
 - Listado Embelmas.
 - Busqueda Embelmas.
 - Detalle Embelma.
+- Filtrado Embelma.
 
 ### Roadmap
 
@@ -68,7 +69,7 @@ Release date: Septiembre 06, 2022
 - [X] Listado Embelmas.
 - [X] Busqueda Embelmas.
 - [X] Detalle Embelma.
-- [ ] Filtrado Embelmas.
+- [X] Filtrado Embelmas.
 - [ ] Test.
 
 ### Donde pueden recibir ayuda los usuarios con el proyecto

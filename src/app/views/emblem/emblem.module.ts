@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
+import { FilterModalModule } from '@uniteDex/shared-ui/components/filter-modal/filter-modal.module';
 import { InfiniteScrollModule } from '@uniteDex/shared-ui/components/infinite-scroll/infinite-scroll.module';
 import { NoDataModule } from '@uniteDex/shared-ui/components/no-data/no-data.module';
 import { SpinnerModule } from '@uniteDex/shared-ui/components/spinner/spinner.module';
@@ -20,7 +21,7 @@ const SHARED_UI_MODULE = [
   NoDataModule,
   SpinnerModule,
   InfiniteScrollModule,
-  // FilterModalModule,
+  FilterModalModule,
   // SkeletonCardModule,
   // PokemonCardModule,
 ];

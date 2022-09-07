@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { Filter } from '@uniteDex/shared/pokemon';
+import { EmblemFilter } from '@uniteDex/shared/emblem/models';
+import { PokemonFilter } from '@uniteDex/shared/pokemon';
 
 @Component({
   selector: 'poke-unite-filter-modal',
@@ -46,6 +47,14 @@ import { Filter } from '@uniteDex/shared/pokemon';
           <ion-select-option *ngFor="let role of roles" [value]="role">{{ role }}</ion-select-option>
         </ion-select>
       </ion-item>
+
+      <ion-item *ngIf="colorsFilter?.length > 0" class="item-select font-medium">
+        <ion-label>{{'COMMON.COLORS' | translate}}</ion-label>
+        <ion-select (ionChange)="changeFilter('color', $any($event))" [value]="selectedFilters?.color" interface="action-sheet">
+          <ion-select-option value="0">{{ 'COMMON.EVERYONE' | translate }}</ion-select-option>
+          <ion-select-option *ngFor="let color of colorsFilter" [value]="color">{{ color }}</ion-select-option>
+        </ion-select>
+      </ion-item>
     </div>
   </ion-content>
   `,
@@ -58,7 +67,8 @@ export class FilterModalComponent {
   @Input() difficulties: string[];
   @Input() ranges: string[];
   @Input() roles: string[];
-  @Input() selectedFilters: Filter;
+  @Input() colorsFilter: string[];
+  @Input() selectedFilters: PokemonFilter | EmblemFilter;
 
 
   constructor(

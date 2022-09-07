@@ -4,8 +4,9 @@ import { Keyboard } from '@capacitor/keyboard';
 import { IonContent, ModalController, Platform } from '@ionic/angular';
 import { Store } from '@ngrx/store';
 import { CoreConfigService } from '@uniteDex/core/services/core-config.service';
+import { FilterModalComponent } from '@uniteDex/shared-ui/components/filter-modal/filter-modal.component';
 import { EmblemActions } from '@uniteDex/shared/emblem';
-import { Emblem, EmblemColor } from '@uniteDex/shared/emblem/models/index';
+import { Emblem, EmblemColor, EmblemFilter } from '@uniteDex/shared/emblem/models/index';
 import { emptyObject, errorImage, getEmblemColors, getObjectKeys, gotToTop, trackById } from '@uniteDex/shared/utils/functions';
 import { map, switchMap, tap, shareReplay } from 'rxjs/operators';
 import { EmblemDetailModalComponent } from '../components/emblem-detail-modal.component';
@@ -25,7 +26,7 @@ import * as fromEmblem from '../selectors/emblem.selectors';
               <ion-searchbar [placeholder]="'COMMON.BY_NAME' | translate" [formControl]="search" (ionClear)="clearSearch($event)"></ion-searchbar>
             </form>
 
-            <!-- <ion-button class="class-ion-button" (click)="presentModal(pokemonFilters)"><ion-icon name="options-outline"></ion-icon></ion-button> -->
+            <ion-button class="class-ion-button" (click)="presentModal(info?.emblemsColors)"><ion-icon name="options-outline"></ion-icon></ion-button>
           </ng-container>
         </ng-container>
       </div>
@@ -110,8 +111,8 @@ export class EmblemPage {
   search = new FormControl('');
   perPage = 15;
 
-  trigger = new EventEmitter<{slice:number, filters:any, refresh:boolean}>();
-  componentStatus: {slice:number, filters:any, refresh:boolean} = {
+  trigger = new EventEmitter<{slice:number, filters:EmblemFilter, refresh:boolean}>();
+  componentStatus: {slice:number, filters:EmblemFilter, refresh:boolean} = {
     slice: this.perPage,
     filters:{},
     refresh: false,
@@ -124,11 +125,9 @@ export class EmblemPage {
     switchMap(({slice, filters}) =>
       this.store.select(fromEmblem.selectEmblemInit).pipe(
         map((info) => {
-          const {emblemList = null} = info || {};
-          const { name = null } = filters || {};
-
-          const list = !!name
-                    ? (emblemList || [])?.filter(({display_name}) => display_name?.toLocaleLowerCase() === name || display_name?.toLocaleLowerCase()?.includes(name))
+          const { emblemList = null } = info || {};
+          const list = Object.values(filters || {})?.length > 0
+                    ? this.filterEmblemList(emblemList, filters)
                     : [...emblemList];
           return {
             ...info,
@@ -138,7 +137,6 @@ export class EmblemPage {
         })
       )
     )
-    // ,tap(d => console.log(d))
     ,shareReplay(1)
   );
 
@@ -224,10 +222,53 @@ export class EmblemPage {
     return await modal.present();
   }
 
+  // OPEN FILTER MODAL
+  async presentModal(emblemColors: EmblemColor[]) {
+    const allCollors = (emblemColors || [])?.map(({name}) => name);
+
+    const modal = await this.modalController.create({
+      component: FilterModalComponent,
+      cssClass: 'my-custom-modal-css',
+      componentProps: {
+        selectedFilters: this.componentStatus?.filters,
+        colorsFilter: allCollors,
+      },
+      breakpoints: [0, 0.2, 0.5, 1],
+      initialBreakpoint: 0.20,
+    })
+
+    modal.present();
+    const { data } = await modal.onDidDismiss();
+
+    if(!data || Object.keys(data || {})?.length === 0) return;
+
+    this.componentStatus = {
+      ...(this.componentStatus ?? {}),
+      'filters':{
+        ...(this.componentStatus?.filters ?? {}),
+        ...((data as any) ?? {}),
+      },
+      refresh:false,
+      slice: this.perPage
+    };
+    this.trigger.next(this.componentStatus);
+  }
+
   // SCROLL EVENT
   logScrolling({detail:{scrollTop}}): void{
     if(scrollTop >= 300) this.showButton = true
     else this.showButton = false
+  }
+
+  // FILTER ITEMS
+  filterEmblemList(listColors: Emblem[], filters: EmblemFilter): Emblem[] {
+    const { name = null, color = null } = filters || {};
+
+    let resultList = [...listColors];
+    resultList = !!name ? (resultList || [])?.filter(({display_name}) => display_name?.toLocaleLowerCase() === name?.toLocaleLowerCase() || display_name?.toLocaleLowerCase()?.includes(name?.toLocaleLowerCase())) : [...resultList];
+    resultList = !!color ? (resultList || [])?.filter((item) => Object.values(item || {})?.includes(color)): [...resultList];
+
+    return resultList || [];
   }
 
 

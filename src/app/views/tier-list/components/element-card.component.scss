@@ -19,27 +19,45 @@
       position: relative;
       overflow: hidden;
 
-      &:before{
-        content: "";
+      .ion-card-pokeball{
         position: absolute;
-        width: 100%;
-        height: 30%;
-        top: 50px;
-        left: -17px;
-        transform: rotate(50deg);
-        background: rgba(255, 255, 255, 0.1);
-      }
+        width: 3em;
+        height: 3em;
+        bottom: -7px;
+        left: -3px;
+        border-radius: 50%;
+        background: none;
+        overflow: hidden;
+        transform: rotate(-20deg);
+        z-index: 1;
 
-      &:after{
-        content: "";
-        position: absolute;
-        width: 100%;
-        height: 30%;
-        top: -5px;
-        left: 21px;
-        transform: rotate(50deg);
-        background: rgba(255, 255, 255, 0.2);
-        // background: red
+        &:before{
+          content: "";
+          position: absolute;
+          width: 100%;
+          height: 47%;
+          background: rgba(255, 255, 255, 0.1);
+        }
+
+        &:after{
+          content: "";
+          position: absolute;
+          top: 56%;
+          width: 100%;
+          height: 55%;
+          background: rgba(255, 255, 255, 0.1);
+        }
+
+        .ion-card-pokeball-circle{
+          position: absolute;
+          width: 1em;
+          height: 1em;
+          border-radius: 50%;
+          margin-left: 50%;
+          margin-top: 35%;
+          background: rgba(255, 255, 255, 0.1) !important;
+          z-index: 1;
+        }
       }
 
       .marker{
@@ -48,6 +66,8 @@
         right: 0;
       }
     }
+
+
   }
 
 }
