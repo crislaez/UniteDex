@@ -119,7 +119,7 @@ export class GenericPage {
 
   info$ = this.trigger.pipe(
     tap(({refresh, option}) => {
-      if(refresh) this.dispatchActions(option)
+      if(refresh) this.dispatchActions(option);
     }),
     switchMap(({slice, filters, option}) =>
       this.getSelectors(option).pipe(

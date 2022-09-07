@@ -36,30 +36,39 @@ UniteDex es una aplicación hecha en Ionic con la información de todos los poke
 Release date: Septiembre 06, 2022
 
 - Listado pokemons.
+- Busqueda pokemons.
 - Filtrado pokemons.
 - Destalle pokemon.
 - Listado battleItems.
-- Destalle battleItems.
+- Busqueda battleItems.
+- Destalle battleItem.
 - Listado buildItems.
-- Destalle buildItems.
+- Busqueda buildItems.
+- Destalle buildItem.
 - Listado Tierlist.
 - Filtrado Tierlist.
 - Listado Embelmas.
+- Busqueda Embelmas.
+- Detalle Embelma.
 
 ### Roadmap
 
 - [X] Listado pokemons.
-- [X] Listado pokemons.
+- [X] Busqueda pokemons.
 - [X] Filtrado pokemons.
 - [X] Destalle pokemon.
 - [X] Listado battleItems.
-- [X] Destalle battleItems.
+- [X] Busqueda battleItems.
+- [X] Destalle battleItem.
 - [X] Listado buildItems.
-- [X] Destalle buildItems.
+- [X] Busqueda buildItems.
+- [X] Destalle buildItem.
 - [X] Listado Tierlist.
 - [X] Filtrado Tierlist.
 - [X] Listado Embelmas.
-- [ ] Detalle Embelmas.
+- [X] Busqueda Embelmas.
+- [X] Detalle Embelma.
+- [ ] Filtrado Embelmas.
 - [ ] Test.
 
 ### Donde pueden recibir ayuda los usuarios con el proyecto

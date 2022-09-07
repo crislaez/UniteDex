@@ -464,11 +464,16 @@ form{
 ion-searchbar{
   --box-shadow: none !important;
   --border-radius: 50px !important;
+  transform: scaleY(0.8);
   padding: 0px;
 
   .searchbar-input-container {
     input{
       background: $seventiary !important;
+      color: $tertiary !important;
+    }
+
+    ion-icon{
       color: $tertiary !important;
     }
   }
@@ -816,6 +821,11 @@ ion-modal{
 
 .align-text{
   text-align: center;
+}
+
+.padding-top-bottom-5{
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 .padding-10{

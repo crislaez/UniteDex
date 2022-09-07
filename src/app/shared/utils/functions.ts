@@ -1,5 +1,6 @@
 import { IonContent } from "@ionic/angular";
 import { SwiperOptions } from "swiper";
+import { Emblem } from "../emblem";
 
 export const trackById = (_: number, item: any): number => {
   return item.id;
@@ -55,6 +56,16 @@ export const orderArray = (list: string[]) => {
 export const replaceLowBar = (text:string) => {
   if(typeof text !== 'string') return
   return text?.replace(/_/g,' ') || '';
+}
+
+export const getEmblemColors = (emblem: Emblem): string [] => {
+  return Object.entries(emblem || {})?.reduce((acc, element) => {
+    const [ key = null, value = null ] = element || [];
+    return [
+      ...(acc ?? []),
+      ...( key?.includes('color') ? [value] : [] )
+    ]
+  },[]);
 }
 
 

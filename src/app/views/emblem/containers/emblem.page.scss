@@ -1,5 +1,10 @@
 @import '../../../../theme/variables.scss';
 
+.class-ion-button{
+  --background: $primary !important;
+  --color: #FFFFFF !important;
+}
+
 .div-avatar{
   width: 30% !important;
   position: relative;

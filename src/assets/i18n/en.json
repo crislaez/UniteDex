@@ -35,7 +35,8 @@
     "TIER_LIST":"Tier list",
     "CRITICAL":"Critical-Hit Ratet",
     "REDUCTION":"CD Reduction",
-    "EMBLEMS":"Emblems"
+    "EMBLEMS":"Emblems",
+    "COOLDOWN_REDUCTION":"Move Cooldown Reduction"
   },
   "ERRORS":{
     "ERROR_LOAD_POKEMONS":"Error loading pokemons",
