@@ -23,6 +23,10 @@ UniteDex es una aplicación hecha en Ionic (Angular, TypeScript, Sass/Css, Html,
 <hr>
 <img src="https://github.com/crislaez/UniteDex/blob/master/src/assets/images/unitedex_10.jpg" />
 <hr>
+<img src="https://github.com/crislaez/UniteDex/blob/master/src/assets/images/unitedex_11.jpg" />
+<hr>
+<img src="https://github.com/crislaez/UniteDex/blob/master/src/assets/images/unitedex_12.jpg" />
+<hr>
 
 
 ### Que hace el proyecto

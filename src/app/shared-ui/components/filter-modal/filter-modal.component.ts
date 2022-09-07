@@ -68,7 +68,7 @@ export class FilterModalComponent {
   @Input() ranges: string[];
   @Input() roles: string[];
   @Input() colorsFilter: string[];
-  @Input() selectedFilters: PokemonFilter | EmblemFilter;
+  @Input() selectedFilters: (PokemonFilter | EmblemFilter);
 
 
   constructor(
