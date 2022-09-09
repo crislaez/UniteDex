@@ -3,7 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { Storage } from '@capacitor/storage'; //APP
 
-const LANG = 'uniteDesLang';
+const LANG = 'uniteDexLang';
 
 
 export function createTranslateLoader(http: HttpClient) {

@@ -26,8 +26,8 @@ export class InfiniteScrollComponent {
   constructor() { }
 
 
-    loadData(event, total): void{
-      this.loadDataTrigger.next({event, total})
-    }
-
+  loadData(event, total): void{
+    this.loadDataTrigger.next({event, total})
   }
+
+}
