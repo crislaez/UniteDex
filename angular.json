@@ -44,8 +44,8 @@
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "src/app/build-specifics/index.ts",
-                  "with": "src/app/build-specifics/index.prod.ts"
+                  "replace": "src/app/core/build-specifics/index.ts",
+                  "with": "src/app/core/build-specifics/index.prod.ts"
                 },
                 {
                   "replace": "src/environments/environment.ts",
