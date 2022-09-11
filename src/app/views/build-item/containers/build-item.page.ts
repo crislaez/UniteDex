@@ -5,7 +5,7 @@ import { IonContent } from '@ionic/angular';
 import { Store } from '@ngrx/store';
 import { CoreConfigService } from '@uniteDex/core/services/core-config.service';
 import { BuildItemActions, fromBuildItem } from '@uniteDex/shared/build-item';
-import { emptyObject, errorImage, getObjectKeys, gotToTop, trackById } from '@uniteDex/shared/utils/functions';
+import { emptyObject, errorImage, getObjectKeys, gotToTop } from '@uniteDex/shared/utils/functions';
 import { map, switchMap } from 'rxjs/operators';
 
 @Component({
@@ -78,7 +78,6 @@ import { map, switchMap } from 'rxjs/operators';
 export class BuildItemPage {
 
   gotToTop = gotToTop;
-  trackById = trackById;
   errorImage = errorImage;
   emptyObject = emptyObject;
   getObjectKeys = getObjectKeys;

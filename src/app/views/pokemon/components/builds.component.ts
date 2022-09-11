@@ -2,12 +2,12 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { CoreConfigService } from '@uniteDex/core/services/core-config.service';
 import { Pokemon } from '@uniteDex/shared/pokemon/models';
 import { StatLevel } from '@uniteDex/shared/stat/models';
-import { errorImage, itemNameFormat, trackById } from '@uniteDex/shared/utils/functions';
+import { errorImage, itemNameFormat, trackByName } from '@uniteDex/shared/utils/functions';
 
 @Component({
   selector: 'poke-unite-builds',
   template:`
-  <ion-card *ngFor="let build of pokemon?.builds; trackBy: trackById"
+  <ion-card *ngFor="let build of pokemon?.builds; trackBy: trackByName"
     class="text-color-light components-background-eighthiary margin-top-20">
 
     <ion-card-header>
@@ -88,7 +88,7 @@ import { errorImage, itemNameFormat, trackById } from '@uniteDex/shared/utils/fu
 export class BuildsComponent {
 
   errorImage = errorImage;
-  trackById = trackById;
+  trackByName = trackByName;
   itemNameFormat = itemNameFormat;
   @Input() pokemon: Partial<Pokemon & {stats: StatLevel[]}>;
 

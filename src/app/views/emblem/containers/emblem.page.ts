@@ -7,8 +7,8 @@ import { CoreConfigService } from '@uniteDex/core/services/core-config.service';
 import { FilterModalComponent } from '@uniteDex/shared-ui/components/filter-modal/filter-modal.component';
 import { EmblemActions } from '@uniteDex/shared/emblem';
 import { Emblem, EmblemColor, EmblemFilter } from '@uniteDex/shared/emblem/models/index';
-import { emptyObject, errorImage, getEmblemColors, getObjectKeys, gotToTop, trackById } from '@uniteDex/shared/utils/functions';
-import { map, switchMap, tap, shareReplay } from 'rxjs/operators';
+import { emptyObject, errorImage, getEmblemColors, getObjectKeys, gotToTop, trackByName } from '@uniteDex/shared/utils/functions';
+import { map, shareReplay, switchMap, tap } from 'rxjs/operators';
 import { EmblemDetailModalComponent } from '../components/emblem-detail-modal.component';
 import * as fromEmblem from '../selectors/emblem.selectors';
 
@@ -43,7 +43,7 @@ import * as fromEmblem from '../selectors/emblem.selectors';
               </div>
 
               <ng-container *ngIf="info?.emblemList?.length > 0; else noData">
-                <ng-container *ngFor="let emblem of info?.emblemList; trackBy: trackById">
+                <ng-container *ngFor="let emblem of info?.emblemList; trackBy: trackByName">
                   <div class="div-avatar">
                     <ion-avatar slot="start" (click)="openPokemondModal(emblem, info?.emblems, info?.emblemsColors)">
                       <ion-img loading="lazy" [src]="_core.getEmblemUrl +'pokedex/'+ emblem?.name +'.png'" [alt]="emblem?.name" (ionError)="errorImage($event)"></ion-img>
@@ -101,7 +101,7 @@ import * as fromEmblem from '../selectors/emblem.selectors';
 export class EmblemPage {
 
   gotToTop = gotToTop;
-  trackById = trackById;
+  trackByName = trackByName;
   errorImage = errorImage;
   emptyObject = emptyObject;
   getObjectKeys = getObjectKeys;

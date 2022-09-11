@@ -3,7 +3,11 @@ import { SwiperOptions } from "swiper";
 import { Emblem } from "../emblem";
 
 export const trackById = (_: number, item: any): number => {
-  return item.id;
+  return item?.id;
+}
+
+export const trackByName = (_: number, item: any): number => {
+  return item?.name;
 }
 
 export const errorImage = (event): void => {

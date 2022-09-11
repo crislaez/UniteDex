@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { CoreConfigService } from '@uniteDex/core/services/core-config.service';
 import { Pokemon } from '@uniteDex/shared/pokemon';
 import { StatLevel } from '@uniteDex/shared/stat/models';
-import { errorImage, getObjectKeys, replaceLowBar, trackById } from '@uniteDex/shared/utils/functions';
+import { errorImage, getObjectKeys, replaceLowBar, trackByName } from '@uniteDex/shared/utils/functions';
 
 @Component({
   selector: '<poke-unite-info',
@@ -13,7 +13,7 @@ import { errorImage, getObjectKeys, replaceLowBar, trackById } from '@uniteDex/s
     </ion-card-header>
 
     <div class="displays-center">
-      <div *ngFor="let evo of pokemon?.['evolution']; trackBy: trackById" class="displays-center div-image">
+      <div *ngFor="let evo of pokemon?.['evolution']; trackBy: trackByName" class="displays-center div-image">
         <ion-avatar>
           <ion-img [src]="_core.imageUrl('pokemon', evo?.name, true)" (ionError)="errorImage($event)"></ion-img>
         </ion-avatar>
@@ -69,8 +69,8 @@ import { errorImage, getObjectKeys, replaceLowBar, trackById } from '@uniteDex/s
 })
 export class InfoComponent {
 
-  trackById = trackById;
   errorImage = errorImage;
+  trackByName = trackByName;
   replaceLowBar = replaceLowBar;
   getObjectKeys = getObjectKeys;
   @Input() pokemon: Partial<Pokemon & {stats: StatLevel[]}>;
