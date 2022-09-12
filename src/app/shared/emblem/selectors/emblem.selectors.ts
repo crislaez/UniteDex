@@ -6,52 +6,52 @@ import { emblemColorsFeatureKey } from '../reducers/emblemColors.reducer';
 export const selectCombineState = createFeatureSelector<CombineState>(combineFeatureKey);
 
 /* === EMBLEM === */
-export const selectEmbelmState = createSelector(
+export const selectEmblemState = createSelector(
   selectCombineState,
   (state) => state[emblemFeatureKey]
 );
 
-export const selectEmbelmsStatus = createSelector(
-  selectEmbelmState,
+export const selectEmblemsStatus = createSelector(
+  selectEmblemState,
   (state) => state?.status
 );
 
-export const selectEmbelms = createSelector(
-  selectEmbelmState,
+export const selectEmblems = createSelector(
+  selectEmblemState,
   (state) => state?.emblems
 );
 
-export const selectEmbelmsList = createSelector(
-  selectEmbelmState,
+export const selectEmblemsList = createSelector(
+  selectEmblemState,
   (state) => state?.emblemList
 );
 
-export const selectEmbelmsErrors = createSelector(
-  selectEmbelmState,
+export const selectEmblemsErrors = createSelector(
+  selectEmblemState,
   (state) => state?.error
 );
 
 
 
 /* === EMBLEM COLORS === */
-export const selectEmbelmColorState = createSelector(
+export const selectEmblemColorState = createSelector(
   selectCombineState,
   (state) => state[emblemColorsFeatureKey]
 );
 
-export const selectEmbelmsColorsStatus = createSelector(
-  selectEmbelmColorState,
+export const selectEmblemsColorsStatus = createSelector(
+  selectEmblemColorState,
   (state) => state?.status
 );
 
-export const selectEmbelmsColors = createSelector(
-  selectEmbelmColorState,
+export const selectEmblemsColors = createSelector(
+  selectEmblemColorState,
   (state) => state?.emblemColors
 );
 
 
-export const selectEmbelmsColorsErrors = createSelector(
-  selectEmbelmColorState,
+export const selectEmblemsColorsErrors = createSelector(
+  selectEmblemColorState,
   (state) => state?.error
 );
 
