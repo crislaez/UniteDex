@@ -20,6 +20,8 @@ export const selectPokemonInit = (pokemonName) =>  createSelector(
       },
       status: [ pokemonStatus, statStatus ]?.includes(EntityStatus.Pending)
             ? EntityStatus.Pending
+            : [ pokemonStatus, statStatus ]?.includes(EntityStatus.Error)
+            ? EntityStatus.Error
             : EntityStatus.Loaded
     }
   }

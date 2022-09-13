@@ -3,11 +3,11 @@ import { fromCoin } from '@uniteDex/shared/emblem';
 import { EntityStatus } from '@uniteDex/shared/models';
 
 export const selectEmblemInit = createSelector(
-  fromCoin.selectEmbelms,
-  fromCoin.selectEmbelmsList,
-  fromCoin.selectEmbelmsColors,
-  fromCoin.selectEmbelmsStatus,
-  fromCoin.selectEmbelmsColorsStatus,
+  fromCoin.selectEmblems,
+  fromCoin.selectEmblemsList,
+  fromCoin.selectEmblemsColors,
+  fromCoin.selectEmblemsStatus,
+  fromCoin.selectEmblemsColorsStatus,
   (emblems, emblemList, emblemsColors, emblemsStatus, emblemsColorsStatus) => {
 
     return {
@@ -16,6 +16,8 @@ export const selectEmblemInit = createSelector(
       ...(emblemsColors ? {emblemsColors} : {emblemsColors:[]}),
       status: [emblemsStatus, emblemsColorsStatus]?.includes(EntityStatus.Pending)
             ? EntityStatus.Pending
+            : [emblemsStatus, emblemsColorsStatus]?.includes(EntityStatus.Error)
+            ? EntityStatus.Error
             : EntityStatus.Loaded
     };
   }

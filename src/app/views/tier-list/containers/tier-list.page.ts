@@ -16,7 +16,7 @@ import { map } from 'rxjs/operators';
   <ion-content [fullscreen]="true" [scrollEvents]="true" (ionScroll)="logScrolling($any($event))">
 
     <div class="empty-header components-background-primary">
-      <div class="width-max displays-around-center margin-top-20">
+      <div class="width-max displays-around-center margin-top-20" *ngIf="!['pending','error']?.includes((getSelectedStatus() | async)) as status">
         <ion-chip
           *ngFor="let item of filter; trackBy: trackById"
           [ngStyle]="{'background': item?.key === selectedFilter ? '#312457' : 'rgba(255,255,255, 0.2)'}"
@@ -30,7 +30,7 @@ import { map } from 'rxjs/operators';
       <ng-container *ngIf="(getSelectedTierList() | async) as tierList">
         <ng-container *ngIf="(getSelectedStatus() | async) as status">
           <ng-container *ngIf="status !== 'pending'; else loader">
-            <ng-container *ngIf="status !== 'error'; else loader">
+            <ng-container *ngIf="status !== 'error'; else serverError">
               <ng-container *ngIf="emptyObject(tierList); else noData">
 
                 <poke-unite-element-card

@@ -44,7 +44,7 @@ SwiperCore.use([Pagination, Navigation]);
 
   <!-- IS ERROR -->
   <ng-container *ngIf="status === 'error'">
-    <poke-unite-no-data [title]="'COMMON.ERROR'" [image]="'assets/images/error.png'" [top]="'15vh'"></poke-unite-no-data>
+    <poke-unite-no-data [title]="'COMMON.ERROR'" [image]="'assets/images/error.png'" [top]="'3vh'"></poke-unite-no-data>
   </ng-container>
 
   <!-- IS NO DATA  -->

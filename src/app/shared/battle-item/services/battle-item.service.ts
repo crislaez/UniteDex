@@ -31,6 +31,3 @@ export class BattleItemService {
 
 }
 
-// BATTLE ITEMS URL https://unite-db.com/battle_items.json
-
-// HELD ITEMS URL https://unite-db.com/held_items.json

@@ -9,6 +9,7 @@ import { StatsActions } from '@uniteDex/shared/stat';
 import { emptyObject, errorImage, getObjectKeys, gotToTop } from '@uniteDex/shared/utils/functions';
 import { switchMap } from 'rxjs/operators';
 import * as fromPokemonPage from '../selectors/pokemon.selectors';
+
 @Component({
   selector: 'poke-unite-pokemon',
   template:`
