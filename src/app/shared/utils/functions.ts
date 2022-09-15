@@ -2,12 +2,9 @@ import { IonContent } from "@ionic/angular";
 import { SwiperOptions } from "swiper";
 import { Emblem } from "../emblem";
 
-export const trackById = (_: number, item: any): number => {
-  return item?.id;
-}
 
-export const trackByName = (_: number, item: any): number => {
-  return item?.name;
+export const trackByFn = (_: number, item: any): number => {
+  return item?.id ?? item?.name ?? item;
 }
 
 export const errorImage = (event): void => {

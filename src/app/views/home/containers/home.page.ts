@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { BattleItemActions } from '@uniteDex/shared/battle-item';
 import { BuildItemActions } from '@uniteDex/shared/build-item';
 import { PokemonActions } from '@uniteDex/shared/pokemon';
-import { gotToTop, trackById } from '@uniteDex/shared/utils/functions';
+import { gotToTop, trackByFn } from '@uniteDex/shared/utils/functions';
 import * as fromHome from '../selectors/home.selectors';
 
 @Component({
@@ -17,7 +17,7 @@ import * as fromHome from '../selectors/home.selectors';
 
     <div class="container components-background-dark">
       <ng-container *ngIf="(homeSelector$ | async) as homeSelector">
-        <ng-container *ngFor="let item of iteratable; trackBy: trackById">
+        <ng-container *ngFor="let item of iteratable; trackBy: trackByFn">
           <poke-unite-swiper
             [title]="item?.title"
             [items]="(homeSelector?.[item?.element] || [])"
@@ -47,7 +47,7 @@ import * as fromHome from '../selectors/home.selectors';
 export class HomePage {
 
   gotToTop = gotToTop;
-  trackById = trackById;
+  trackByFn = trackByFn;
   @ViewChild(IonContent, {static: true}) content: IonContent;
   showButton = false
   homeSelector$ = this.store.select(fromHome.selectHomeInit);

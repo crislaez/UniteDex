@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { CoreConfigService } from '@uniteDex/core/services/core-config.service';
 import { EntityStatus } from '@uniteDex/shared/models';
-import { errorImage, getImage, getSliderConfig, sliceText, trackById } from '@uniteDex/shared/utils/functions';
+import { errorImage, getImage, getSliderConfig, sliceText, trackByFn } from '@uniteDex/shared/utils/functions';
 import SwiperCore, { Navigation, Pagination } from 'swiper';
 
 SwiperCore.use([Pagination, Navigation]);
@@ -23,7 +23,7 @@ SwiperCore.use([Pagination, Navigation]);
   <ng-container *ngIf="status === 'loaded'">
     <ng-container *ngIf="items?.length > 0; else noData">
       <swiper #swiper effect="fade" [config]="getSliderConfig(items)" >
-        <ng-template swiperSlide *ngFor="let item of items; trackBy: trackById" >
+        <ng-template swiperSlide *ngFor="let item of items; trackBy: trackByFn" >
           <poke-unite-pokemon-card
             [type]="type"
             [pokemon]="item">
@@ -59,18 +59,16 @@ export class SwiperComponent {
 
   getImage = getImage;
   sliceText = sliceText;
-  trackById = trackById;
+  trackByFn = trackByFn;
   errorImage = errorImage;
   getSliderConfig = getSliderConfig;
 
   @Input() title: string;
   @Input() hash: string;
-  @Input() items: any[]; //Pokemon[] | BuildItem[] | BattleItem[];
+  @Input() items: any[]; //(Pokemon | BuildItem | BattleItem)[]//
   @Input() status: EntityStatus;
   @Input() showMore: boolean;
   @Input() type: string;
-  // items: any[] = [];
-  // status = 'pending';
 
   constructor(
     public _core: CoreConfigService

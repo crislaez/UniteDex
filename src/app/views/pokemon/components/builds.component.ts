@@ -2,12 +2,12 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { CoreConfigService } from '@uniteDex/core/services/core-config.service';
 import { Pokemon } from '@uniteDex/shared/pokemon/models';
 import { StatLevel } from '@uniteDex/shared/stat/models';
-import { errorImage, itemNameFormat, trackByName } from '@uniteDex/shared/utils/functions';
+import { errorImage, itemNameFormat, trackByFn } from '@uniteDex/shared/utils/functions';
 
 @Component({
   selector: 'poke-unite-builds',
   template:`
-  <ion-card *ngFor="let build of pokemon?.builds; trackBy: trackByName"
+  <ion-card *ngFor="let build of pokemon?.builds; trackBy: trackByFn"
     class="text-color-light components-background-eighthiary margin-top-20">
 
     <ion-card-header>
@@ -18,7 +18,7 @@ import { errorImage, itemNameFormat, trackByName } from '@uniteDex/shared/utils/
     <ng-container *ngIf="getMoves(build?.['basic'], build?.['upgrade']) as moves">
       <ng-container *ngIf="moves?.length > 0">
         <div class="displays-around margin-top-10">
-          <div *ngFor="let move of moves; let i = index;" class="width-20 span-bold">
+          <div *ngFor="let move of moves; trackBy: trackByFn; let i = index;" class="width-20 span-bold">
             <ion-avatar class="margin-bottom-10">
               <ion-img [src]="_core.imageUrl(pokemon?.name, move)" (ionError)="errorImage($event)"></ion-img>
             </ion-avatar>
@@ -34,7 +34,7 @@ import { errorImage, itemNameFormat, trackByName } from '@uniteDex/shared/utils/
 
       <div class="displays-start div-item">
         <ng-container *ngIf="build?.held_items?.length > 0; else noItem">
-          <div *ngFor="let item of build?.held_items" class="displays-around-center div-image">
+          <div *ngFor="let item of build?.held_items; trackBy: trackByFn" class="displays-around-center div-image">
             <ion-img [src]="_core.imageUrl('buildItem', itemNameFormat(item))" (ionError)="errorImage($event)"></ion-img>
           </div>
         </ng-container>
@@ -58,7 +58,7 @@ import { errorImage, itemNameFormat, trackByName } from '@uniteDex/shared/utils/
 
       <div class="displays-start div-item">
         <ng-container *ngIf="build?.battle_items?.length > 0; else noItem">
-          <div *ngFor="let item of build?.battle_items" class="displays-around-center div-image">
+          <div *ngFor="let item of build?.battle_items; trackBy: trackByFn" class="displays-around-center div-image">
             <ion-img [src]="_core.imageUrl('battleItem', itemNameFormat(item))" (ionError)="errorImage($event)"></ion-img>
           </div>
         </ng-container>
@@ -87,8 +87,8 @@ import { errorImage, itemNameFormat, trackByName } from '@uniteDex/shared/utils/
 })
 export class BuildsComponent {
 
+  trackByFn = trackByFn;
   errorImage = errorImage;
-  trackByName = trackByName;
   itemNameFormat = itemNameFormat;
   @Input() pokemon: Partial<Pokemon & {stats: StatLevel[]}>;
 

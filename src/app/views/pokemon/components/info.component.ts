@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { CoreConfigService } from '@uniteDex/core/services/core-config.service';
 import { Pokemon } from '@uniteDex/shared/pokemon';
 import { StatLevel } from '@uniteDex/shared/stat/models';
-import { errorImage, getObjectKeys, replaceLowBar, trackByName } from '@uniteDex/shared/utils/functions';
+import { errorImage, getObjectKeys, replaceLowBar, trackByFn } from '@uniteDex/shared/utils/functions';
 
 @Component({
   selector: '<poke-unite-info',
@@ -13,7 +13,7 @@ import { errorImage, getObjectKeys, replaceLowBar, trackByName } from '@uniteDex
     </ion-card-header>
 
     <div class="displays-center">
-      <div *ngFor="let evo of pokemon?.['evolution']; trackBy: trackByName" class="displays-center div-image">
+      <div *ngFor="let evo of pokemon?.['evolution']; trackBy: trackByFn" class="displays-center div-image">
         <ion-avatar>
           <ion-img [src]="_core.imageUrl('pokemon', evo?.name, true)" (ionError)="errorImage($event)"></ion-img>
         </ion-avatar>
@@ -45,7 +45,7 @@ import { errorImage, getObjectKeys, replaceLowBar, trackByName } from '@uniteDex
     </ion-card-header>
 
     <div class="displays-between">
-      <ng-container *ngFor="let key of getObjectKeys(pokemon?.stats[(level - 1)])">
+      <ng-container *ngFor="let key of getObjectKeys(pokemon?.stats[(level - 1)]); trackBy: trackByFn">
         <div *ngIf="key !== 'level'" class="text-start width-40 padding-10 capital-letter">
           <ng-container *ngIf="key === 'crit'">{{ 'COMMON.CRITICAL' | translate }}</ng-container>
           <ng-container *ngIf="key === 'cdr'">{{ 'COMMON.REDUCTION' | translate }}</ng-container>
@@ -69,8 +69,8 @@ import { errorImage, getObjectKeys, replaceLowBar, trackByName } from '@uniteDex
 })
 export class InfoComponent {
 
+  trackByFn = trackByFn;
   errorImage = errorImage;
-  trackByName = trackByName;
   replaceLowBar = replaceLowBar;
   getObjectKeys = getObjectKeys;
   @Input() pokemon: Partial<Pokemon & {stats: StatLevel[]}>;

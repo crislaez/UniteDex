@@ -10,8 +10,8 @@ import { FilterModalComponent } from '@uniteDex/shared-ui/components/filter-moda
 import { BattleItemActions, fromBattleItem } from '@uniteDex/shared/battle-item';
 import { BuildItemActions, fromBuildItem } from '@uniteDex/shared/build-item';
 import { EntityStatus } from '@uniteDex/shared/models/index';
-import { PokemonFilter, fromPokemon, Pokemon, PokemonActions } from '@uniteDex/shared/pokemon';
-import { gotToTop, trackById } from '@uniteDex/shared/utils/functions';
+import { fromPokemon, Pokemon, PokemonActions, PokemonFilter } from '@uniteDex/shared/pokemon';
+import { gotToTop, trackByFn } from '@uniteDex/shared/utils/functions';
 import { Observable } from 'rxjs';
 import { map, shareReplay, switchMap, tap } from 'rxjs/operators';
 
@@ -46,7 +46,7 @@ import { map, shareReplay, switchMap, tap } from 'rxjs/operators';
                 <div class="header">
                 </div>
 
-                <ng-container *ngFor="let pokemon of info?.list; trackBy: trackById">
+                <ng-container *ngFor="let pokemon of info?.list; trackBy: trackByFn">
                   <poke-unite-pokemon-card
                     [type]="componentStatus?.option"
                     [pokemon]="pokemon">
@@ -101,7 +101,7 @@ import { map, shareReplay, switchMap, tap } from 'rxjs/operators';
 export class GenericPage {
 
   gotToTop = gotToTop;
-  trackById = trackById;
+  trackByFn = trackByFn;
   @ViewChild(IonContent, {static: true}) content: IonContent;
   showButton = false
   search = new FormControl('');

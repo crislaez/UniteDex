@@ -5,7 +5,7 @@ import { EntityStatus } from '@uniteDex/shared/models';
 import { NotificationActions } from '@uniteDex/shared/notification';
 import { of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
-import * as StatsActions from '../actions/emblem.actions';
+import * as EmblemActions from '../actions/emblem.actions';
 import { EmblemService } from '../services/emblem.service';
 
 
@@ -14,22 +14,22 @@ export class EmblemEffects implements OnInitEffects {
 
   initLoadEmblem$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(StatsActions.initLoadEmblem),
+      ofType(EmblemActions.initLoadEmblem),
       switchMap(() => {
-        return of(StatsActions.loadEmblems(), StatsActions.loadEmblemsColors())
+        return of(EmblemActions.loadEmblems(), EmblemActions.loadEmblemsColors())
       })
     )
   });
 
   loadEmblems$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(StatsActions.loadEmblems),
+      ofType(EmblemActions.loadEmblems),
       switchMap(() => {
         return this._emblem.getEmblems().pipe(
-          map(({emblems}) => StatsActions.saveEmblems({ emblems, error:undefined, status:EntityStatus.Loaded })),
+          map(({emblems}) => EmblemActions.saveEmblems({ emblems, error:undefined, status:EntityStatus.Loaded })),
           catchError(error => {
             return of(
-              StatsActions.saveEmblems({ emblems:[], error, status:EntityStatus.Error }),
+              EmblemActions.saveEmblems({ emblems:[], error, status:EntityStatus.Error }),
               NotificationActions.notificationFailure({message: 'ERRORS.ERROR_LOAD_EMBLEMS'})
             )
           })
@@ -40,13 +40,13 @@ export class EmblemEffects implements OnInitEffects {
 
   loadEmblemsColors$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(StatsActions.loadEmblemsColors),
+      ofType(EmblemActions.loadEmblemsColors),
       switchMap(() => {
         return this._emblem.getEmblemsColors().pipe(
-          map(({emblemColors}) => StatsActions.saveEmblemsColors({ emblemColors, error:undefined, status:EntityStatus.Loaded })),
+          map(({emblemColors}) => EmblemActions.saveEmblemsColors({ emblemColors, error:undefined, status:EntityStatus.Loaded })),
           catchError(error => {
             return of(
-              StatsActions.saveEmblemsColors({ emblemColors:[], error, status:EntityStatus.Error }),
+              EmblemActions.saveEmblemsColors({ emblemColors:[], error, status:EntityStatus.Error }),
               NotificationActions.notificationFailure({message: 'ERRORS.ERROR_LOAD_EMBLEMS_COLORS'})
             )
           })
@@ -57,7 +57,7 @@ export class EmblemEffects implements OnInitEffects {
 
 
   ngrxOnInitEffects() {
-    return StatsActions.initLoadEmblem();
+    return EmblemActions.initLoadEmblem();
   };
 
 

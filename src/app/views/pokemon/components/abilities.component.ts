@@ -2,12 +2,12 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { CoreConfigService } from '@uniteDex/core/services/core-config.service';
 import { Pokemon, Skill } from '@uniteDex/shared/pokemon/models';
 import { StatLevel } from '@uniteDex/shared/stat/models';
-import { errorImage, trackByName } from '@uniteDex/shared/utils/functions';
+import { errorImage, trackByFn } from '@uniteDex/shared/utils/functions';
 
 @Component({
   selector: 'poke-unite-abilities',
   template:`
-  <ion-card *ngFor="let skill of pokemon?.skills; let i = index; trackBy: trackByName"
+  <ion-card *ngFor="let skill of pokemon?.skills; let i = index; trackBy: trackByFn"
     class="text-color-light components-background-eighthiary margin-top-20">
 
     <ion-card-header>
@@ -37,7 +37,7 @@ import { errorImage, trackByName } from '@uniteDex/shared/utils/functions';
     </div>
 
     <ng-container *ngIf="i <= 1 && getExistFields(skill)">
-      <ng-container *ngFor="let index of getCountElement(skill)">
+      <ng-container *ngFor="let index of getCountElement(skill); trackBy: trackByFn">
         <ion-card-header >
           <ion-card-title class="text-color-light span-bold">
             <div class="displays-start">
@@ -61,7 +61,7 @@ import { errorImage, trackByName } from '@uniteDex/shared/utils/functions';
     </ng-container>
 
     <div *ngIf="skill?.['upgrades']?.length > 0" class="displays-around-center">
-      <ion-card class="upgrade-cards" *ngFor="let upgrade of skill?.['upgrades']; trackBy: trackByName">
+      <ion-card class="upgrade-cards" *ngFor="let upgrade of skill?.['upgrades']; trackBy: trackByFn">
         <ion-card-header>
           <ion-card-title *ngIf="skill?.name" class="text-color-light span-bold">
             <div class="displays-start">
@@ -98,8 +98,8 @@ import { errorImage, trackByName } from '@uniteDex/shared/utils/functions';
 })
 export class AbilitiesComponent {
 
+  trackByFn = trackByFn;
   errorImage = errorImage;
-  trackByName = trackByName;
   @Input() pokemon: Partial<Pokemon & {stats: StatLevel[]}>;
   extraAbilities = ['passive2_name', 'passive3_name', 'basic2_name', 'basic3_name']; //TODO
 

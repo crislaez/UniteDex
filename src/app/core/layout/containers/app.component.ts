@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, HostListener } from '@angular/core';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
-import { trackById } from '@uniteDex/shared/utils/functions';
+import { trackByFn } from '@uniteDex/shared/utils/functions';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 
@@ -36,7 +36,7 @@ import { filter, map } from 'rxjs/operators';
 
       <ion-content >
       <!-- lines="none" -->
-        <ng-container *ngFor="let item of links; trackBy: trackById" >
+        <ng-container *ngFor="let item of links; trackBy: trackByFn" >
           <ion-item detail class="text-color-light" [disabled]="item?.disabled" [routerLink]="['/'+item?.link]" (click)="openEnd()">{{ item?.text | translate }}</ion-item>
         </ng-container>
       </ion-content >
@@ -62,7 +62,7 @@ import { filter, map } from 'rxjs/operators';
 })
 export class AppComponent {
 
-  trackById = trackById;
+  trackByFn = trackByFn;
   currentSection$: Observable<{route:string, label:string}> = this.router.events.pipe(
     filter((event: any) => event instanceof NavigationStart),
     map((event: NavigationEnd) => {

@@ -6,7 +6,7 @@ import { BattleItem, BattleItemActions, fromBattleItem } from '@uniteDex/shared/
 import { BuildItem, BuildItemActions, fromBuildItem } from '@uniteDex/shared/build-item';
 import { EntityStatus } from '@uniteDex/shared/models';
 import { fromPokemon, Pokemon, PokemonActions } from '@uniteDex/shared/pokemon';
-import { emptyObject, gotToTop, trackById } from '@uniteDex/shared/utils/functions';
+import { emptyObject, gotToTop, trackByFn } from '@uniteDex/shared/utils/functions';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -18,7 +18,7 @@ import { map } from 'rxjs/operators';
     <div class="empty-header components-background-primary">
       <div class="width-max displays-around-center margin-top-20" *ngIf="!['pending','error']?.includes((getSelectedStatus() | async)) as status">
         <ion-chip
-          *ngFor="let item of filter; trackBy: trackById"
+          *ngFor="let item of filter; trackBy: trackByFn"
           [ngStyle]="{'background': item?.key === selectedFilter ? '#312457' : 'rgba(255,255,255, 0.2)'}"
           (click)="selectedFilter = item?.key">
           {{ item?.literal | translate }}
@@ -76,7 +76,7 @@ import { map } from 'rxjs/operators';
 export class TierListPage {
 
   gotToTop = gotToTop;
-  trackById = trackById;
+  trackByFn = trackByFn;
   emptyObject = emptyObject;
   showButton = false
   @ViewChild(IonContent, {static: true}) content: IonContent;

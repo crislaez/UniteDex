@@ -3,7 +3,7 @@ import { CoreConfigService } from '@uniteDex/core/services/core-config.service';
 import { BattleItem } from '@uniteDex/shared/battle-item/models/index';
 import { BuildItem } from '@uniteDex/shared/build-item/models/index';
 import { Pokemon } from '@uniteDex/shared/pokemon/models/index';
-import { errorImage, getObjectKeys, orderArray, sliceText, trackById } from '@uniteDex/shared/utils/functions';
+import { errorImage, getObjectKeys, orderArray, sliceText, trackByFn } from '@uniteDex/shared/utils/functions';
 
 @Component({
   selector: 'poke-unite-element-card',
@@ -19,7 +19,7 @@ import { errorImage, getObjectKeys, orderArray, sliceText, trackById } from '@un
 
     <div class="displays-between" >
       <div class="pokemon-element"
-        *ngFor="let item of tierList[key]; let i = index; trackBy: trackById"
+        *ngFor="let item of tierList[key]; let i = index; trackBy: trackByFn"
         [routerLink]="['/'+type+'/'+item?.name]">
 
         <div class="ion-card-pokeball">
@@ -51,8 +51,8 @@ import { errorImage, getObjectKeys, orderArray, sliceText, trackById } from '@un
 })
 export class ElementCardComponent {
 
+  trackByFn = trackByFn;
   sliceText = sliceText;
-  trackById = trackById;
   orderArray = orderArray;
   errorImage = errorImage;
   getObjectKeys = getObjectKeys;

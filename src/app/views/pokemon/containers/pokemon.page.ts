@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { CoreConfigService } from '@uniteDex/core/services/core-config.service';
 import { PokemonActions } from '@uniteDex/shared/pokemon';
 import { StatsActions } from '@uniteDex/shared/stat';
-import { emptyObject, errorImage, getObjectKeys, gotToTop } from '@uniteDex/shared/utils/functions';
+import { emptyObject, errorImage, getObjectKeys, gotToTop, trackByFn } from '@uniteDex/shared/utils/functions';
 import { switchMap } from 'rxjs/operators';
 import * as fromPokemonPage from '../selectors/pokemon.selectors';
 
@@ -31,7 +31,7 @@ import * as fromPokemonPage from '../selectors/pokemon.selectors';
               </div>
 
               <div class="width-max displays-around-center margin-top-20">
-                <ion-chip *ngFor="let item of getObjectKeys(info?.pokemon?.['tags'])">{{ info?.pokemon?.['tags']?.[item] }}</ion-chip>
+                <ion-chip *ngFor="let item of getObjectKeys(info?.pokemon?.['tags']); trackBy: trackByFn">{{ info?.pokemon?.['tags']?.[item] }}</ion-chip>
               </div>
 
               <div class="displays-center margin-top-10">
@@ -39,7 +39,7 @@ import * as fromPokemonPage from '../selectors/pokemon.selectors';
               </div>
 
               <ion-segment scrollable (ionChange)="segmentChanged($any($event))" [(ngModel)]="selected">
-                <ion-segment-button *ngFor="let item of itemsSegments; let i = index;" [value]="item?.id" class="text-color-light">
+                <ion-segment-button *ngFor="let item of itemsSegments; trackBy: trackByFn; let i = index;" [value]="item?.id" class="text-color-light">
                   <ion-label class="capital-letter">{{ item?.label | translate }}</ion-label>
                 </ion-segment-button>
               </ion-segment>
@@ -97,6 +97,7 @@ import * as fromPokemonPage from '../selectors/pokemon.selectors';
 export class PokemonPage {
 
   gotToTop = gotToTop;
+  trackByFn = trackByFn;
   errorImage = errorImage;
   emptyObject = emptyObject;
   getObjectKeys = getObjectKeys;
