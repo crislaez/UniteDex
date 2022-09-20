@@ -19,6 +19,7 @@ import { map } from 'rxjs/operators';
       <div class="width-max displays-around-center margin-top-20" *ngIf="!['pending','error']?.includes((getSelectedStatus() | async)) as status">
         <ion-chip
           *ngFor="let item of filter; trackBy: trackByFn"
+          class="text-color-light"
           [ngStyle]="{'background': item?.key === selectedFilter ? '#312457' : 'rgba(255,255,255, 0.2)'}"
           (click)="selectedFilter = item?.key">
           {{ item?.literal | translate }}

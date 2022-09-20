@@ -17,12 +17,12 @@ import { errorImage, getImage, sliceText } from '@uniteDex/shared/utils/function
         <div class="span-text text-color-light"><span class="span-bold">{{ sliceText(pokemon?.name, 15) }}</span></div>
       </div>
 
-      <div class="pokemon-item-types">
+      <div class="pokemon-item-types ">
         <ion-chip *ngIf="pokemon?.damage_type">
-          <ion-label>{{ pokemon?.damage_type }}</ion-label>
+          <ion-label class="text-color-light">{{ pokemon?.damage_type }}</ion-label>
         </ion-chip>
         <ion-chip *ngIf="pokemon?.tags?.range">
-          <ion-label>{{ pokemon?.tags?.range }}</ion-label>
+          <ion-label class="text-color-light">{{ pokemon?.tags?.range }}</ion-label>
         </ion-chip>
       </div>
 

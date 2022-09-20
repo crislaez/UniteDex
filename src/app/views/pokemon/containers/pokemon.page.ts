@@ -31,11 +31,11 @@ import * as fromPokemonPage from '../selectors/pokemon.selectors';
               </div>
 
               <div class="width-max displays-around-center margin-top-20">
-                <ion-chip *ngFor="let item of getObjectKeys(info?.pokemon?.['tags']); trackBy: trackByFn">{{ info?.pokemon?.['tags']?.[item] }}</ion-chip>
+                <ion-chip class="text-color-light" *ngFor="let item of getObjectKeys(info?.pokemon?.['tags']); trackBy: trackByFn">{{ info?.pokemon?.['tags']?.[item] }}</ion-chip>
               </div>
 
               <div class="displays-center margin-top-10">
-                <ion-chip *ngIf="info?.pokemon?.['damage_type'] as damage_type" class="attack">{{ damage_type }} {{ 'COMMON.ATTACKER' | translate }}</ion-chip>
+                <ion-chip class="text-color-light" *ngIf="info?.pokemon?.['damage_type'] as damage_type" class="attack">{{ damage_type }} {{ 'COMMON.ATTACKER' | translate }}</ion-chip>
               </div>
 
               <ion-segment scrollable (ionChange)="segmentChanged($any($event))" [(ngModel)]="selected">
