@@ -40,7 +40,7 @@ export const reducer = createReducer(
               ...(accumulate ?? {}),
               [key]:{
                 ...(acc[key] ?? {}),
-                ...(key ? {[tags?.[key]]:tags?.[key]} : {})
+                ...(key ? { [tags?.[key]]:tags?.[key] } : {})
               }
             }
           },{})

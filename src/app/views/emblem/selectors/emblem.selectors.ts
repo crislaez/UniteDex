@@ -11,9 +11,12 @@ export const selectEmblemInit = createSelector(
   (emblems, emblemList, emblemsColors, emblemsStatus, emblemsColorsStatus) => {
 
     return {
-      ...(emblems ? {emblems} : {emblems:[]}),
-      ...(emblemList ? {emblemList} : {emblemList:[]}),
-      ...(emblemsColors ? {emblemsColors} : {emblemsColors:[]}),
+      emblems: emblems ?? [],
+      emblemList: emblemList ?? [],
+      emblemsColors: emblemsColors ?? [],
+      // ...(emblems ? {emblems} : {emblems:[]}),
+      // ...(emblemList ? {emblemList} : {emblemList:[]}),
+      // ...(emblemsColors ? {emblemsColors} : {emblemsColors:[]}),
       status: [emblemsStatus, emblemsColorsStatus]?.includes(EntityStatus.Pending)
             ? EntityStatus.Pending
             : [emblemsStatus, emblemsColorsStatus]?.includes(EntityStatus.Error)
