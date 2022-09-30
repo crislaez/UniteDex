@@ -119,7 +119,7 @@ export class AbilitiesComponent {
   }
 
   getSkillName(skill:string): string {
-    return skill?.includes('Attack')
+    return skill?.includes('Attack') && skill !== 'Quick Attack'
             ? 'Attack'
             : skill
   }
